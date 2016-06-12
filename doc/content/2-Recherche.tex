@@ -6,6 +6,7 @@ In diesem Kapitel wird erklärt was BPMN ist, es werden die Rahmenbedingungen um
 BPMN steht für Business Process Model and Notation. Dabei handelt es sich um eine genormte Visualisierung für Business Processes. Entwickelt wurde der Standart im Jahre 2001 durch die Firma IBM.
 
 \subsection{Notation}
+\label{sec:Recherche:bpmn:notation}
 In diesem Abschnitt soll die grundlegenden Objekte von BPMN vorgestellt werden.
 
 \begin{figure}[H]
@@ -70,13 +71,35 @@ Es ist demnach zwingend Notwendig, dass das BPMN Programm auf Windows, sowie auf
 In diesem Abschnitt werden verschiedene Programme vorgestellt und analysierten, ob sie für die Umsetzung dieses Projekte in Frage kommen. Dazu wird zuvor definiert, was die Anforderungen an das Programm sind.
 
 \subsection{Anforderungen}
-In den Abschnitten \cref{sec:Recherche:rahmenbedingungen:prozesse} \nameref{sec:Recherche:rahmenbedingungen:prozesse} und \cref{sec:Recherche:rahmenbedingungen:api} \nameref{sec:Recherche:rahmenbedingungen:api} wurde beschrieben, dass das Programm auf den Betriebsystemen Windows und Unix lauffähig sein muss, sowie die Unterstützung von \Gls{glos:json} basierten \Glspl{glos:api} beinhalten muss.
+\label{sec:Recherche:programme:anforderungen}
+Eine zentrale Eigenschaft des Programmes ist, dass es eine Process Engine enthält. Dieses ermöglicht es, ein Prozess nicht nur in dem Tool zu zeichnen, sondern diesen auch auszuführen. Gemäss Aufgabenstellung muss das Tool auch die Datentransformation mittels XSLT unterstützen.
 
-Gemäss Aufgabenstellung muss das Tool auch die Datentransformation mittels XSLT unterstützen.
+In den Abschnitten \cref{sec:Recherche:rahmenbedingungen:prozesse} \nameref{sec:Recherche:rahmenbedingungen:prozesse} und \cref{sec:Recherche:rahmenbedingungen:api} \nameref{sec:Recherche:rahmenbedingungen:api} wurde zudem beschrieben, dass das Programm auf den Betriebsystemen Windows und Unix lauffähig sein muss, sowie die Unterstützung von \Gls{glos:json} basierten \Glspl{glos:api} beinhalten muss.
+
+Zusätzlich sollte die Software gratis sein.
 
 \subsection{Programmanalyse}
-Activity
-Jbpm
-Imix
-Camuda
-Drools (arbeitet mit jbpm)
+\label{sec:Recherche:programme:analyse}
+Die folgende Tabelle vergleicht verschiedene BPMN Tools auf die zuvor definierten Anforderungen (siehe \cref{sec:Recherche:programme:anforderungen} \nameref{sec:Recherche:programme:anforderungen}).
+\begin{table}[H] 
+	\caption{Programme - Feature Gegenüberstellung}
+	\centering
+	\label{sec:Recherche:programme:programmanalyse}
+	
+	\begin{tabular}{ | c | c | c | c | c | c | } 
+		\hline 
+		\textbf{Programm} & \textbf{\begin{tabular}[x]{@{}c@{}}Process\\Engine\end{tabular}} & \textbf{\begin{tabular}[x]{@{}c@{}}Windows\\\& Linux\end{tabular}} & \textbf{\begin{tabular}[x]{@{}c@{}}API mittels\\JSON\end{tabular}} & \textbf{XSLT} & \textbf{Gratis} \\ \hline 
+		Activiti\footcite{Activiti_2016-06-12} & x & x &  &  & x \\ \hline
+		Yaoqiang\footcite{Yaoqiang_2016-06-12} &  & x &  &  &  \\ \hline
+		jBPM\footcite{jBPM_2016-06-12} & x & x &  &  & x \\ \hline
+		Imixs\footcite{Imixs_2016-06-12} & x & x &  &  & x \\ \hline
+		\begin{tabular}[x]{@{}c@{}}IBM Business\\Process Manager\footcite{IBM_Business_Process_Manager_2016-06-12}\end{tabular} & x & & x &  &  \\ \hline
+		Camuda\footcite{Camuda_2016-06-12} & x & x &  &  & x \\ \hline
+		
+		Drools\footcite{Drools_2016-06-12} & x & x &  &  & x \\ \hline
+		Bonita\footcite{Bonitasoft_2016-06-12} & x & x & & x & x \\ \hline
+		BizTalk\footcite{BizTalk_2016-06-12} & x &  & x & x &  \\ \hline		
+	\end{tabular} 
+\end{table}
+
+Von den Funktionen ist Microsoft's BizTalk die geeignetste Variante. Jedoch läuft dieses Programm nicht auf Linux und es ist nicht gratis. Die zweitbeste Wahl ist Bonita von Bonitasoft, welches keine \Gls{glos:api} Anfragen mittels \Gls{glos:json} unterstützt.
