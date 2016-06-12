@@ -1,0 +1,32 @@
+% !TeX encoding=utf8
+% !TeX spellcheck = de_CH_frami
+
+%%% --- Acronym definitions
+\IfDefined{newacronym}{%
+	\newacronym{svn}{SVN}{Subversion}
+	\newacronym{dom}{DOM}{Document Object Model}
+	\newacronym{url}{URL}{Uniform Resource Locator}
+	\newacronym{zhaw}{ZHAW}{Zürcher Hochschule für Angewandte Wissenschaften}
+}
+
+% use it with \gls{glos:svn}
+% use plural with \glspl{svn}
+
+%%% --- Symbol list entries
+
+%\newglossaryentry{symb:Pi}{%
+%  name=$\pi$,%
+%  description={mathematical constant},%
+%  sort=symbolpi, type=symbolslist%
+%}
+
+
+%%% --- Glossary entries
+\newglossaryentry{glos:api}{name=API,
+	description={API steht für Application Programming Interface. Dabei handelt es sich um eine Programmierschnittstelle, die den Austausch von Daten oder das starten von Prozessen erlaubt.}
+}
+\newglossaryentry{glos:json}{name=JSON,
+	description={JSON steht für JavaScript Object Notation. Dies ist eine definierte Schreibweise um Daten auszutauschen.}
+}
+
+% \Gls{glos:api}
