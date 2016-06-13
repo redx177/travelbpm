@@ -14,10 +14,340 @@ Nachfolgend werden die benötigten Anfragen an die API aufgeführt, welche für 
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
-	test: "haha",
-	"blubb": 1
+	"href": "https://dev-api.travel.ch/",
+	[...]
+	"hotelPlusFlightSearch":{ "href": "https://dev-api.travel.ch/HotelPlusFlight/Search" },
+	[...]
 }
 \end{lstlisting}
+Dies ist die Root Ressource. Das Feld hotelPlusFlightSearch ist der Einstigspunkt für die Hotel und Flug Suche.
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "href":"https://dev-api.travel.ch/HotelPlusFlight/Search",
+    "form":{
+        "description":{ "href":"https://dev-api.travel.ch/HotelPlusFlight/SearchFormDescription/HotelPlusFlight" },
+        "submit": { "href":"https://dev-api.travel.ch/HotelPlusFlight/Search{?destination,periodOfStay,roomOccupancies*,departureAirport,departureAirports*,targetPeriodOfStay,hotelCategories*,ratings,mealTypeCategories*,directFlight,flightClasses*,matchHotels,productType}" },
+        "data":{ [...] },
+        "alternatives":null
+    },
+    "results":null
+}
+\end{lstlisting}
+/HotelPlusFlight/Search führt eine Suche aus. Wird die Ressource jedoch wie hier ohne Parameter aufgerufen, so sind keine Suchresultate definiert.
+Hier wird auch beschrieben, wie eine Suche ausgeführt werden kann. Im Feld form->submit ist die \gls{url} definiert, welche für eine Suche aufgerufen werden muss. Bei dieser sind jedoch Parameter zwingend, welche in der SearchFormDescription unter form->description weiter beschrieben werden.
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "href":"https://dev-api.travel.ch/HotelPlusFlight/SearchFormDescription/HotelPlusFligh",
+    "destination":{
+        "type":{ "href":"https://dev-api.travel.ch/FieldType/Destination" },
+        "config":{
+            "suggestUri":{ "href":"https://dev-api.travel.ch/DestinationSuggestions/HotelPlusFligh?q=%7B_%7D" }
+        }
+    },
+    "periodOfStay":{
+        "type":{ "href":"https://dev-api.travel.ch/FieldType/PeriodOfStay" },
+        "config":{
+            "minCheckInDate":"2016-06-16",
+            "maxCheckInDate":"2017-06-16",
+            "minNumberOfNights":1,
+            "maxNumberOfNights":90
+        }
+    },
+    "roomOccupancies":{
+        "type":{ "href":"https://dev-api.travel.ch/FieldType/RoomOccupancies" },
+        "config":{
+            "minRooms":1,
+            "maxRooms":2,
+            "minAdultsPerRoom":1,
+            "maxAdultsPerRoom":6,
+            "minChildrenPerRoom":0,
+            "maxChildrenPerRoom":4,
+            "minChildAge":0,
+            "maxChildAge":18
+        }
+    },
+    "departureAirport":{
+        "type":{ "href":"https://dev-api.travel.ch/FieldType/Airport" },
+        "config":[
+            {"href":"https://dev-api.travel.ch/Destination/A6299466"},
+            {"href":"https://dev-api.travel.ch/Destination/A6299720"},
+            {"href":"https://dev-api.travel.ch/Destination/A2660644"},
+            {"href":"https://dev-api.travel.ch/Destination/A6299722"},
+            {"href":"https://dev-api.travel.ch/Destination/A3208823"},
+            {"href":"https://dev-api.travel.ch/Destination/A3174133"}
+        ]
+    },
+    [...]
+}
+\end{lstlisting}
+Dies ist die SearchFormDescription für die Hotel und Flug Suche. Sie beschreibt die Parameter, welche für eine Suche benutzt werden können.
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "href":"https://dev-api.travel.ch/HotelPlusFlight/Search?destination=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2F6547539&periodOfStay.checkInDate=2016-10-05&periodOfStay.checkOutDate=2016-10-08&roomOccupancies%5B0%5D.dateOfBirths%5B0%5D=null&roomOccupancies%5B0%5D.dateOfBirths%5B1%5D=null&hotelCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FNone&hotelCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FOne&hotelCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FTwo&hotelCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FThree&hotelCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FFour&hotelCategories%5B5%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FFive&departureAirports%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2FA6299722&luggageOptions%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FLuggageOption%2FWithLuggage&luggageOptions%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FLuggageOption%2FWithoutLuggage&ratings.minimal=0&ratings.maximal=100&mealTypeCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FRoomOnly&mealTypeCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FBreakfast&mealTypeCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FHalfBoard&mealTypeCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FFullBoard&mealTypeCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FAllInclusive&directFlight=False&flightClasses%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FFlightClass%2FEconomy&flightClasses%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FFlightClass%2FBusiness&matchHotels=True",
+    "form":{
+        [...]
+        "data":{
+            "destination":{ "href":"https://dev-api.travel.ch/Destination/6547539" },
+            "periodOfStay":{
+                "checkInDate":"2016-10-05",
+                "checkOutDate":"2016-10-08"
+            },
+            [...]
+            "roomOccupancies":[
+                {
+                    "dateOfBirths":[ null, null ]
+                }
+            ],
+            "departureAirport":{ "href":"https://dev-api.travel.ch/Destination/A6299722" },
+            [...]
+        },
+        "alternatives":null
+    },
+    "results":{
+        "href":"https://dev-api.travel.ch/HotelPlusFlight/SearchResultPage/19E2B6BB-1F06-4396-B86E-169EDB368B0E?hotelCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FNone&hotelCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FOne&hotelCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FTwo&hotelCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FThree&hotelCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FFour&hotelCategories%5B5%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FFive&luggageOptions%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FLuggageOption%2FWithLuggage&luggageOptions%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FLuggageOption%2FWithoutLuggage&ratings.minimal=0&ratings.maximal=100&mealTypeCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FRoomOnly&mealTypeCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FBreakfast&mealTypeCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FHalfBoard&mealTypeCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FFullBoard&mealTypeCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FAllInclusive&sortMethod.Type=https%3A%2F%2Fdev-api.travel.ch%2FSortType%2FPrice"
+    }
+}
+\end{lstlisting}
+Bei dieser Anfrage handelt es sich um eine Suche, dieses mal mit Suchparametern. Das Feld results ist nun mit einer SearchResultPage befüllt.
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "href":"https://dev-api.travel.ch/HotelPlusFlight/SearchResultPage/19E2B6BB-1F06-4396-B86E-169EDB368B0E?sortMethod.type=https%3A%2F%2Fdev-api.travel.ch%2FSortType%2FPrice&ratings.minimal=0&ratings.maximal=100&hotelCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FNone&hotelCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FOne&hotelCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FTwo&hotelCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FThree&hotelCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FFour&hotelCategories%5B5%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FFive&mealTypeCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FRoomOnly&mealTypeCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FBreakfast&mealTypeCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FHalfBoard&mealTypeCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FFullBoard&mealTypeCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FAllInclusive&luggageOptions%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FLuggageOption%2FWithLuggage&luggageOptions%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FLuggageOption%2FWithoutLuggage",
+    "citytripSearch": {
+        "href":"https://dev-api.travel.ch/HotelPlusFlight/Search?destination=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2F6547539&periodOfStay.checkInDate=2016-10-05&periodOfStay.checkOutDate=2016-10-08&roomOccupancies%5B0%5D.dateOfBirths%5B0%5D=null&roomOccupancies%5B0%5D.dateOfBirths%5B1%5D=null&hotelCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FNone&hotelCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FOne&hotelCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FTwo&hotelCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FThree&hotelCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FFour&hotelCategories%5B5%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FFive&departureAirports%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2FA6299722&luggageOptions%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FLuggageOption%2FWithLuggage&luggageOptions%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FLuggageOption%2FWithoutLuggage&ratings.minimal=0&ratings.maximal=100&mealTypeCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FRoomOnly&mealTypeCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FBreakfast&mealTypeCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FHalfBoard&mealTypeCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FFullBoard&mealTypeCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FAllInclusive&directFlight=False&flightClasses%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FFlightClass%2FEconomy&flightClasses%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FFlightClass%2FBusiness&matchHotels=True"
+    },
+    "form": {
+        "description": { "href": "https://dev-api.travel.ch/HotelPlusFlight/SearchResultPageFormDescription/19E2B6BB-1F06-4396-B86E-169EDB368B0E?searchResultPageId=E5241069-1272-4DD0-946E-46DD2E9D55E6" },
+        "data": { [...] },
+        "facets": { [...] },
+        "submit": {
+            "href":"https://dev-api.travel.ch/HotelPlusFlight/SearchResultPage/19E2B6BB-1F06-4396-B86E-169EDB368B0E{?paging.offset,paging.size,sortMethod.type,sortMethod.data,hotelName,ratings.minimal,ratings.maximal,prices.maximal.amount,prices.maximal.currency,prices.minimal.amount,prices.minimal.currency,hotelCategories*,mealTypeCategories*,hotelTypes*,keyFacts*,partsOfCity*,tourOperators*,flightRouteStopCounts*,flightRoute1DepartureDateTimes.minimal,flightRoute1DepartureDateTimes.maximal,flightRoute1ArrivalDateTimes.minimal,flightRoute1ArrivalDateTimes.maximal,flightRoute1DepartureAirports*,flightRoute1ArrivalAirports*,flightRoute2DepartureDateTimes.minimal,flightRoute2DepartureDateTimes.maximal,flightRoute2ArrivalDateTimes.minimal,flightRoute2ArrivalDateTimes.maximal,flightRoute2DepartureAirports*,flightRoute2ArrivalAirports*,airlines*,flightRouteDurations.minimal,flightRouteDurations.maximal,luggageOptions*}"
+        },
+        "alternatives": null
+    },
+    "teaserForm": { [...] },
+    "totalCount": 263,
+    "count": 263,
+    "results": { "href": "https://dev-api.travel.ch/HotelPlusFlight/SearchResults/E5241069-1272-4DD0-946E-46DD2E9D55E6" },
+    "mapFeatures": { "href": "https://dev-api.travel.ch/HotelPlusFlight/SearchResultPage/E5241069-1272-4DD0-946E-46DD2E9D55E6/Map" }
+}
+\end{lstlisting}
+Dies ist die SearchResultPage. Auf travel.ch wird diese verwendet, um die Resultate weiter zu filtrieren. Dies ist jedoch bei diesem Projekt nicht vorgesehen. Von dieser Anfrage wird nur das Feld results benötigt, welches die Suchresultate beinhaltet.
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "href":"https://dev-api.travel.ch/HotelPlusFlight/SearchResults/E5241069-1272-4DD0-946E-46DD2E9D55E6",
+    "items":[
+        {
+            "href":"https://dev-api.travel.ch/HotelPlusFlight/SearchResult/21ca65ff-976a-4a3e-bc92-b17608db3b25?pageId=58B8D81D-12B5-4EEE-9CE9-902CCDF01791",
+            "citytripSearchResultPage":{
+                "href":"https://dev-api.travel.ch/HotelPlusFlight/SearchResultPage/19E2B6BB-1F06-4396-B86E-169EDB368B0E?paging.offset=0&paging.size=12&sortMethod.type=https%3A%2F%2Fdev-api.travel.ch%2FSortType%2FPrice&ratings.minimal=0&ratings.maximal=100&hotelCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FNone&hotelCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FOne&hotelCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FTwo&hotelCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FThree&hotelCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FFour&hotelCategories%5B5%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelCategory%2FFive&mealTypeCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FRoomOnly&mealTypeCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FBreakfast&mealTypeCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FHalfBoard&mealTypeCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FFullBoard&mealTypeCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FAllInclusive&luggageOptions%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FLuggageOption%2FWithLuggage&luggageOptions%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FLuggageOption%2FWithoutLuggage"
+            },
+            "hotelInformation":{ "href":"https://dev-api.travel.ch/HotelInformation/DDA48396-8105-433D-B75B-668F96EC89D8" },
+            "offer":{
+                "href":"https://dev-api.travel.ch/HotelPlusFlight/Offer?destination=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2FH_63CA0931EAD8A33EF988144360A8056C&offerHotelInformation=https%3A%2F%2Fdev-api.travel.ch%2FHotelInformation%2FDDA48396-8105-433D-B75B-668F96EC89D8&hotelInformation=https%3A%2F%2Fdev-api.travel.ch%2FHotelInformation%2FDDA48396-8105-433D-B75B-668F96EC89D8&periodOfStay.checkInDate=2016-10-05&periodOfStay.checkOutDate=2016-10-08&roomOccupancies%5B0%5D.dateOfBirths%5B0%5D=null&roomOccupancies%5B0%5D.dateOfBirths%5B1%5D=null&departureAirports%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2FA6299722&mealTypeCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FRoomOnly&mealTypeCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FBreakfast&mealTypeCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FHalfBoard&mealTypeCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FFullBoard&mealTypeCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FAllInclusive&rooms%5B0%5D.HubBookingCode=BED-FHBB&flights%5B0%5D.HubId=2H&flights%5B1%5D.HubId=13&flights%5B0%5D.HubCode=ZRHTXL&flights%5B1%5D.HubCode=TXLZRH",
+                "price":{
+                    "actualTotal":{
+                        "amount":45512,
+                        "currency":{ "href":"https://dev-api.travel.ch/Currency/CHF" }
+                    },
+                    "previousTotal":null,
+                    "averagePrice":{
+                        "type":{ "href":"https://dev-api.travel.ch/AveragePriceType/PerPerson" },
+                        "value":{
+                            "amount":22800,
+                            "currency":{ "href":"https://dev-api.travel.ch/Currency/CHF" }
+                        }
+                    }
+                }
+            },
+            "availability":null,
+            "labels":null,
+            "distanceInMeters":null
+        },
+        [...]
+    ]
+}
+\end{lstlisting}
+Das sind die Hotelresultate der Suche. Diese Antwort ist sehr verkürzt. Es wird nur ein Resultat hier angezeigt um die Übersicht zu behalten.
+
+
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "href":"https://dev-api.travel.ch/HotelInformation/dda48396-8105-433d-b75b-668f96ec89d8",
+    "name":"Generator Berlin Prenzlauer Berg",
+    "descriptions":{
+        "href":"https://dev-api.travel.ch/HotelInformation/dda48396-8105-433d-b75b-668f96ec89d8/Descriptions",
+        "hotel":{ "href":"https://dev-api.travel.ch/HotelInformation/dda48396-8105-433d-b75b-668f96ec89d8" },
+        "items":[
+            {
+                "type":{ "href":"https://dev-api.travel.ch/HotelDescriptionType/Hotel" },
+                "text":"Das Stadthotel ist in einem futuristischen Design erbaut und befindet sich in der Naehe der Berlin Arena und der S-Bahnstation Landsberger Allee, nur sechs Strassenbahnhaltestellen vom Alexanderplatz entfernt. Das stilvolle Hostel verfuegt ueber farbenfrohe Zimmer mit Schliessfach und eigenem Bad bzw. Gemeinschaftsbad und die Bar organisiert taegliche Veranstaltungen und woechentliche Partys. Darueber hinaus werden Karaoke-Abende, Filmvorfuehrungen und kostenlose Wanderungen angeboten. Dieses Hostel verspricht einen einzigartigen und unvergesslichen Aufenthalt."
+            }
+        ]
+    },
+    "images":{
+        "href":"https://dev-api.travel.ch/HotelInformation/dda48396-8105-433d-b75b-668f96ec89d8/ImageGallery",
+        "hotel":{
+            "href":"https://dev-api.travel.ch/HotelInformation/dda48396-8105-433d-b75b-668f96ec89d8"
+        },
+        "main":{
+            "href":"https://dev-api.travel.ch/HotelInformation/dda48396-8105-433d-b75b-668f96ec89d8/Image/SG90ZWxcRERBNFw4Mzk2LTgxMDUtNDMzRC1CNzVCLTY2OEY5NkVDODlEOFwwMTU5NzVhX2hiX2JhXzAxMi5qcGc=",
+            "url":"//dev-images.travel.ch/pictures/Hotel/DDA4/8396-8105-433D-B75B-668F96EC89D8/015975a_hb_ba_012.jpg",
+            "alt":null,
+            "description":null
+        },
+        "items":[
+            {
+                "href":"https://dev-api.travel.ch/HotelInformation/dda48396-8105-433d-b75b-668f96ec89d8/Image/SG90ZWxcRERBNFw4Mzk2LTgxMDUtNDMzRC1CNzVCLTY2OEY5NkVDODlEOFwwMTU5NzVhX2hiX2JhXzAxMi5qcGc=",
+                "url":"//dev-images.travel.ch/pictures/Hotel/DDA4/8396-8105-433D-B75B-668F96EC89D8/015975a_hb_ba_012.jpg",
+                "alt":null,
+                "description":null
+            },
+            {
+                "href":"https://dev-api.travel.ch/HotelInformation/dda48396-8105-433d-b75b-668f96ec89d8/Image/SG90ZWxcRERBNFw4Mzk2LTgxMDUtNDMzRC1CNzVCLTY2OEY5NkVDODlEOFwwMTU5NzVhX2hiX2xfMDA5LmpwZw==",
+                "url":"//dev-images.travel.ch/pictures/Hotel/DDA4/8396-8105-433D-B75B-668F96EC89D8/015975a_hb_l_009.jpg",
+                "alt":null,
+                "description":null
+            },
+            [...]
+        ]
+    },
+    "facts":{
+        "href":"https://dev-api.travel.ch/HotelInformation/dda48396-8105-433d-b75b-668f96ec89d8/Facts",
+        "hotel":{ "href":"https://dev-api.travel.ch/HotelInformation/dda48396-8105-433d-b75b-668f96ec89d8" },
+        "items":[
+            {
+                "type":{ "href":"https://dev-api.travel.ch/FactGroupType/Environment" },
+                "facts":[
+                    {
+                        "type":{ "href":"https://dev-api.travel.ch/FactType/Simple" },
+                        "data":"Busbahnhof/Bahnhof 3500 m"
+                    },
+                    {
+                        "type":{ "href":"https://dev-api.travel.ch/FactType/Simple" },
+                        "data":"Vergnuegungsviertel 3500 m"
+                    },
+                ]
+            },
+            {
+                "type":{
+                    "href":"https://dev-api.travel.ch/FactGroupType/Hotel"
+                },
+                "facts":[
+                    {
+                        "type":{ "href":"https://dev-api.travel.ch/FactType/Simple" },
+                        "data":"NO Haustiere auch ueber 5 kg erlaubt"
+                    },
+                    {
+                        "type":{ "href":"https://dev-api.travel.ch/FactType/Simple" },
+                        "data":"Waescherei"
+                    },
+                    [...]
+                ]
+            },
+            {
+                "type":{ "href":"https://dev-api.travel.ch/FactGroupType/Room" },
+                "facts":[
+                    {
+                        "type":{ "href":"https://dev-api.travel.ch/FactType/Simple"  },
+                        "data":"NO Raucherzimmer"
+                    },
+                    {
+                        "type":{ "href":"https://dev-api.travel.ch/FactType/Simple" },
+                        "data":"Dusche"
+                    },
+                    [...]
+                ]
+            }
+        ]
+    },
+    "ratings":null,
+    "geoLocation":{
+        "type":"Point",
+        "coordinates":[
+            13.455673,
+            52.529681
+        ]
+    },
+    "destination":{ "href":"https://dev-api.travel.ch/Destination/H_63CA0931EAD8A33EF988144360A8056C" },
+    "keyFacts":[
+        { "href":"https://dev-api.travel.ch/KeyFact/Bar" },
+        { "href":"https://dev-api.travel.ch/KeyFact/WLAN" }
+    ],
+    "labels":[ { "href":"https://dev-api.travel.ch/Label/CustomerRecommendation" } ],
+    "hotelCategory":{ "href":"https://dev-api.travel.ch/HotelCategory/One" },
+    "addressLines":[
+        "10407 Prenzlauer Berg",
+        "Deutschland"
+    ],
+    "tourOperator":null,
+    "tourOperatorGtcUrl":null
+}
+\end{lstlisting}
+Jedes Suchresultat der vorherigen Anfrage beinhaltet eine solche (oben) HotelInformation. Diese beherbergt alle Informationen eines Hotels, die nicht an ein Angebot gebunden ist. Zum Beispiel Bilder, Beschreibungen, etc. Was nicht enthalten ist sind Preise.
+
+
+
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "href":"https://dev-api.travel.ch/HotelPlusFlight/Offer?destination=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2FH_9675C54E32056B7DC2393EE1D758FEB9&offerHotelInformation=https%3A%2F%2Fdev-api.travel.ch%2FHotelInformation%2F46FFEA61-6A24-4FCB-AE6A-524CE6E752DF&hotelInformation=https%3A%2F%2Fdev-api.travel.ch%2FHotelInformation%2F46FFEA61-6A24-4FCB-AE6A-524CE6E752DF&periodOfStay.checkInDate=2016-10-05&periodOfStay.checkOutDate=2016-10-12&roomOccupancies%5B0%5D.dateOfBirths%5B0%5D=null&roomOccupancies%5B0%5D.dateOfBirths%5B1%5D=null&departureAirports%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2FA6299722&mealTypeCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FRoomOnly&mealTypeCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FBreakfast&mealTypeCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FHalfBoard&mealTypeCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FFullBoard&mealTypeCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FAllInclusive&tourOperators%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FTourOperator%2FTWCH&tourOperators%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FTourOperator%2FTOC&roomTypeCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FHotelRoom&roomTypeCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FStudio&roomTypeCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FJuniorSuite&roomTypeCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FApartment&roomTypeCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FSuite&roomTypeCategories%5B5%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FBungalow&rooms%5B0%5D.HubBookingCode=DB-3D&flights%5B0%5D.HubId=2H&flights%5B1%5D.HubId=1I&flights%5B0%5D.HubCode=ZRHTXL&flights%5B1%5D.HubCode=TXLZRH",
+    "tourOperator":{
+        "href":"https://dev-api.travel.ch/TourOperator/TWCH"
+    },
+    "form":{
+        "data":{
+            "destination":{ "href":"https://dev-api.travel.ch/Destination/H_9675C54E32056B7DC2393EE1D758FEB9" }
+        }
+    },
+    "selectForm":{ [...] },
+    "hotelForm":{
+        "description":{
+            "href":"https://dev-api.travel.ch/HotelPlusFlight/HotelConfigurationFormDescription?offerHotelInformation=https%3A%2F%2Fdev-api.travel.ch%2FHotelInformation%2F46FFEA61-6A24-4FCB-AE6A-524CE6E752DF&roomOccupancies%5B0%5D.dateOfBirths%5B0%5D=null&roomOccupancies%5B0%5D.dateOfBirths%5B1%5D=null&departureAirports%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2FA6299722&rooms%5B0%5D.HubBookingCode=DB-3D&flights%5B0%5D.HubId=2H&flights%5B1%5D.HubId=1I&flights%5B0%5D.HubCode=ZRHTXL&flights%5B1%5D.HubCode=TXLZRH&periodOfStay.checkInDate=2016-10-05&periodOfStay.checkOutDate=2016-10-12"
+        },
+        [...]
+    },
+    "flightForm":{
+        "description":{
+            "href":"https://dev-api.travel.ch/HotelPlusFlight/FlightConfigurationFormDescription?offerHotelInformation=https%3A%2F%2Fdev-api.travel.ch%2FHotelInformation%2F46FFEA61-6A24-4FCB-AE6A-524CE6E752DF&roomOccupancies%5B0%5D.dateOfBirths%5B0%5D=null&roomOccupancies%5B0%5D.dateOfBirths%5B1%5D=null&departureAirports%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2FA6299722&rooms%5B0%5D.HubBookingCode=DB-3D&flights%5B0%5D.HubId=2H&flights%5B1%5D.HubId=1I&flights%5B0%5D.HubCode=ZRHTXL&flights%5B1%5D.HubCode=TXLZRH&periodOfStay.checkInDate=2016-10-05&periodOfStay.checkOutDate=2016-10-12"
+        },
+        [...]
+    },
+    "orderForm":{
+        "description":{ "href":"https://dev-api.travel.ch/HotelPlusFlight/OrderFormDescription" },
+        "submit":{
+            "href":"https://dev-api.travel.ch/HotelPlusFlight/SearchResult/Offer/Order?destination=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2FH_9675C54E32056B7DC2393EE1D758FEB9&offerHotelInformation=https%3A%2F%2Fdev-api.travel.ch%2FHotelInformation%2F46FFEA61-6A24-4FCB-AE6A-524CE6E752DF&hotelInformation=https%3A%2F%2Fdev-api.travel.ch%2FHotelInformation%2F46FFEA61-6A24-4FCB-AE6A-524CE6E752DF&periodOfStay.checkInDate=2016-10-05&periodOfStay.checkOutDate=2016-10-12&roomOccupancies%5B0%5D.dateOfBirths%5B0%5D=null&roomOccupancies%5B0%5D.dateOfBirths%5B1%5D=null&departureAirports%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FDestination%2FA6299722&mealTypeCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FRoomOnly&mealTypeCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FBreakfast&mealTypeCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FHalfBoard&mealTypeCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FFullBoard&mealTypeCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelMealTypeCategory%2FAllInclusive&tourOperators%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FTourOperator%2FTWCH&tourOperators%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FTourOperator%2FTOC&roomTypeCategories%5B0%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FHotelRoom&roomTypeCategories%5B1%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FStudio&roomTypeCategories%5B2%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FJuniorSuite&roomTypeCategories%5B3%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FApartment&roomTypeCategories%5B4%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FSuite&roomTypeCategories%5B5%5D=https%3A%2F%2Fdev-api.travel.ch%2FHotelRoomTypeCategory%2FBungalow&rooms%5B0%5D.HubBookingCode=DB-3D&flights%5B0%5D.HubId=2H&flights%5B1%5D.HubId=1I&flights%5B0%5D.HubCode=ZRHTXL&flights%5B1%5D.HubCode=TXLZRH",
+            "action":"POST"
+        }
+    },
+    "price":{
+        "actualTotal":{
+            "amount":174370,
+            "currency":{ "href":"https://dev-api.travel.ch/Currency/CHF" }
+        },
+        "previousTotal":null,
+        "averagePrice":{
+            "type":{ "href":"https://dev-api.travel.ch/AveragePriceType/PerPerson" },
+            "value":{
+                "amount":87200,
+                "currency":{ "href":"https://dev-api.travel.ch/Currency/CHF" }
+            }
+        }
+    },
+    "travelPeriod":{
+        "startDate":"2016-10-05",
+        "endDate":"2016-10-12"
+    },
+    "hotelInformation":{ "href":"https://dev-api.travel.ch/HotelInformation/46FFEA61-6A24-4FCB-AE6A-524CE6E752DF" },
+    "transfer":{ "href":"https://dev-api.travel.ch/HotelPlusFlight/Transfer/NotIncluded" }
+}
+\end{lstlisting}
+Dies ist ein Offer und Zeigt die Hotelzimmer Konfigurationen (RoomTypes, MealTypes) und die Flüge, welche zum Hotel gebucht werden können.
 
 \subsection{Testumgebung}
 Für dieses Projekt muss die Testumgebung verwendet werden. Dies stellt sicher, dass keine Testbuchungen ins produktive System gelangen und die Authorisierungsdaten der Live-API nicht veröffentlicht werden.
