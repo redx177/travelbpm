@@ -3,8 +3,10 @@
 
 \chapter{Anforderungen und Analyse}
 \label{sec:analyse}
+In diesem Kapitel werden die technischen Aspekte der API der travelwindow AG beschrieben, sowie die eingesetzte BPMN Software beschrieben.
 
 \section{Anaylse der travelwindow AG API}
+\label{sec:analyse:api}
 Die \Gls{glos:api} der travelwindow AG ist mit \Gls{glos:hal} aufgebaut. Sprich es gibt einen Einstiegspunkt, welcher unter "`/"' erreichbar ist. Danach navigiert man sich über Links durch die Schnittstelle durch. Dies macht die API frei erkundbar, jedoch die Umsetzung mittels BPMN komplexer.
 
 Nachfolgend werden die benötigten Anfragen an die API aufgeführt, welche für die Suche eines Hotel und Flug Angebotes benötigt werden (siehe \cref{sec:Recherche:rahmenbedingungen:prozesse} \nameref{sec:Recherche:rahmenbedingungen:prozesse}). Die aufgeführten Antworten sind für eine bessere Übersichtlichkeit verkürzt.
@@ -16,6 +18,13 @@ Nachfolgend werden die benötigten Anfragen an die API aufgeführt, welche für 
 	"blubb": 1
 }
 \end{lstlisting}
+
+\subsection{Testumgebung}
+Für dieses Projekt muss die Testumgebung verwendet werden. Dies stellt sicher, dass keine Testbuchungen ins produktive System gelangen und die Authorisierungsdaten der Live-API nicht veröffentlicht werden.
+Die \gls{url} der Umgebung lautet: https://dev-api.travel.ch
+
+\subsection{Checkout}
+Der Checkout gibt es in der Testumgebung seit dem letzten Projekt nicht mehr. Dieser wurde ausgelagert in eine Umgebung die nicht mehr unserem Team unterstellt ist und kann somit nicht nur BPMN modelliert werden.
 
 \section{Bonita}
 Also BPMN Programm wurde Bonita festgelegt (siehe \cref{sec:Recherche:programme:analyse} \nameref{sec:Recherche:programme:analyse}). Es bietet zwar nicht die gesamte benötigte Features, ist jedoch auf Unix und auf Windows lauffähig und gratis. In diesem Abschnitt wird eine Einführung in das Tool gegeben. 

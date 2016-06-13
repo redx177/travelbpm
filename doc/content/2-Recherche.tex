@@ -67,6 +67,60 @@ Das Entwicklungssystem des Programmierers ist eine Linux Mint Computer. Dabei ha
 
 Es ist demnach zwingend Notwendig, dass das BPMN Programm auf Windows, sowie auf Unix basierten Betriebssystemen läuft.
 
+\section{travel.ch Webseite}
+Da die Webseite der Travelwindow AG in BPMN dargestellt werden soll, wird nachfolgend das Interface der Seite aufgezeigt.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/travel-search.png}
+	\caption{Hotel und Flug suche auf travel.ch}
+	\label{fig:recherche:travelch:search}
+\end{figure}
+Das Reiseziel definiert das Ziel des Fluges und wo das Hotel gesucht wird. Als Reisedaten gibt es eine exakte und eine flexible Suche. Bei einer flexiblen Suche gibt man einen Reisezeitraum (z.B. 6 Monate) an und definiert, wie lange die Reise sein soll (z.B. 7 Tage). Dann kann man das günstigste Objekt in diesem Zeitraum aussuchen. Bei der exakten Suche gibt man das Hinreise- und Rückreisedatum genau an.
+Im Feld Personen/Zimmer kann man Räume definieren und wie viele Passagiere in diesen übernachten. Es wird zwischen Erwachsenen und Kinder unterschieden, da bei den Kindern zusätzlich das Geburtsdatum angegeben werden muss. Der Abflug ab gibt an, ab wo man fliegen möchte. Dies ist eine fixe Liste mit folgenden Flughäfen:
+\begin{itemize}
+\item Basel-Mülhausen
+\item Bern-Belp
+\item Genève-Cointrin
+\item Zürich
+\item Friedrichshafen
+\item Mailand-Malpensa
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/travel-results.png}
+	\caption{Hotel und Flug Hotelresultate auf travel.ch}
+	\label{fig:recherche:travelch:results}
+\end{figure}
+Bei den Hotelresultaten gibt es links eine Filtrierung der Ergebnisse, welche Rechts dargestellt werden. Diese bestehen aus:
+\begin{itemize}
+\item Hauptbild
+\item Namen des Hotels
+\item Günstigster Preis
+\item Hotelklasse (Sterne)
+\item Bewertungen
+\item Karte, auf welcher die Geolocation des Hotels angezeigt wird
+\item Weiteren Bildern
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/travel-configuration.png}
+	\caption{Hotelconfiguration von Hotel und Flug auf travel.ch}
+	\label{fig:recherche:travelch:configuration}
+\end{figure}
+Auf der Konfigurationsseite des Hotels werden weitere Informationen wie Checkin-Daten, Hoteldetails, Detailierten Bewertungen, Hotelfacts, etc. angezeigt. Das wichtigste ist jedoch die oben dargestellte Matrix. Sie erlaubt dem Kunden das Hotelzimmer zu konfigurieren. Die Spalten der Matrix sind die Zimmer-, und die Kolonnen die Verpflegungstypen.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/travel-flights.png}
+	\caption{Hotel und Flug Flugresultate auf travel.ch}
+	\label{fig:recherche:travelch:flights}
+\end{figure}
+Zum Schluss wird dem Kunden noch eine Auswahl von Flügen angeboten.
+
+Danach gelangt der User in den Checkout Prozess, wo er seine persönlichen Daten eingeben muss und die Zahlung tätigen kann. Dies wurde jedoch an ein externes System ausgelagert und kann deshalb nicht mehr im BPMN dargestellt werden, da es keine zugängliche API dafür gibt. 
+
 \section{Programme}
 In diesem Abschnitt werden verschiedene Programme vorgestellt und analysierten, ob sie für die Umsetzung dieses Projekte in Frage kommen. Dazu wird zuvor definiert, was die Anforderungen an das Programm sind.
 
