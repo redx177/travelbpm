@@ -1,8 +1,10 @@
 
 \chapter{Konzept}
 \label{sec:konzept}
+Das Konzept umfasst die Mockups der Formulare, welche in Bonita dargestellt werden, sowie der Prozess welcher modelliert werden soll.
 
 \section{Mockups}
+\label{sec:konzept:mockups}
 Der Buchungsprozess vom Hotel und Flug Produkt von travel.ch benötigt vier Ansichten, für welche hier Mockups aufgezeigt werden.
 Diese wurden mit dem UI Designer von Bonita erstellt (siehe \cref{sec:analyse:bonita:forms:forms} \nameref{sec:analyse:bonita:forms:forms}).
 
@@ -33,4 +35,21 @@ Diese Ansicht zeigt ein Foto des Hotels, dessen Namen und der günstigste Preis.
 \end{figure}
 Auf der travel.ch Seite werden die Zimmer-Konfigurationen als Matrix dargestellt (siehe \cref{sec:recherche:travelch:results} \nameref{sec:recherche:travelch:results}). In Bonita ist dies jedoch nur sehr umständlich abbildbar. Deshalb wurde die Ansicht vereinfacht und als Liste dargestellt.
 
-Im \cref{sec:analyse:api} \nameref{sec:analyse:api} wurden die verschiedenen API
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{images/forms-select-flight.png}
+	\caption{Mockup für die Flugresultate}
+	\label{fig:konzept:mockups:selectflight}
+\end{figure}
+
+
+\section{Prozess}
+\label{sec:konzept:prozess}
+Der Process der travel.ch Seite ist linear und wurde im \cref{sec:Recherche:rahmenbedingungen:prozesse} \nameref{sec:Recherche:rahmenbedingungen:prozesse} abgebildet. Für die Modellierung in Bonita wird eine Veränderung vorgenommen.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{images/hotelplusflightbonita.png}
+	\caption{Hotel plus Flight BPMN Model für dieses Projekt}
+	\label{fig:konzept:mockups:selectflight}
+\end{figure}
+Die API von travelwindow AG gibt vor, dass zuerst gesucht und ein Hotel ausgewählt wird. Ob danach das Hotel konfiguriert oder der Flug gewählt wird ist hinfällig. Dies ist in der API so modelliert, dass im HotelPlusFlightOffer direkt das Formular für die Hotelkonfiguration und die Flugauswahl vorhanden sind (siehe den letzte Anfrage im \cref{sec:analyse:api} \nameref{sec:analyse:api}). Deshalb wurde ein parallel Gateway eingefügt der diesen Umstand im BPMN abbildet.
