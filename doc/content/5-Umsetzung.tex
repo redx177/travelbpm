@@ -281,10 +281,10 @@ for (hotel in hotelPlusFlightResults.getHotels()) {
 }
 return mappedData
 \end{lstlisting}
-Leider konnte der Fehler dadurch nicht behoben werden. Es wurden stattdessen Standartwerte auf den Pool Variablen definiert damit der Prozess durchgeführt werden kann.
+Leider konnte der Fehler dadurch nicht behoben werden. Gemäss Bonitasoft sollte dies kein Problem darstellen. Recherchen in der Dokumentation des Programmes und Online im Forum des Herstellers gaben keine abhilfe. Es wurden stattdessen Standartwerte auf den Pool Variablen definiert damit der Prozess bis ans Ende durchgeführt werden kann.
 
-\subsection{\glspl{bdm} befüllen}
-Das Aufsetzten der Formulare und die Konfiguration der Contract und Operations verlief Problemlos. Jedoch gab es Probleme beim Abfüllen der \glspl{bdm} nach den Formularen. Dadurch gab es im Bonita Log folgende Meldung:
+\subsection{Input Parameter der Connectoren}
+Das Aufsetzten der Formulare und die Konfiguration der Contract und Operations verlief Problemlos. Jedoch gab es Probleme bei den Input Parametern der Connectoren. Bei der Ausführung des Prozesses erschien folgende Log Meldung:
 
 \begin{lstlisting}[firstnumber=1]
 SEVERE: THREAD_ID=119 | HOSTNAME=Slang-ThinkPad | TENANT_ID=1 | The work [ExecuteConnectorOfActivity: flowNodeInstanceId = 240003, connectorDefinitionName = HotelPlusFlighResultsHotelSelection] failed. The failure will be handled.
@@ -293,13 +293,14 @@ SEVERE: THREAD_ID=119 | HOSTNAME=Slang-ThinkPad | TENANT_ID=1 | org.bonitasoft.e
 org.bonitasoft.engine.persistence.SRetryableException: javax.persistence.PersistenceException: org.hibernate.PropertyValueException: not-null property references a null or transient value: com.travelwindow.model.HotelPlusFlightResultHotel._hotels_HOTELPLUSFLIGHTRESULTS_PIDBackref
 \end{lstlisting}
 
-Der Fehler tritt nach dem Select Hotel Task auf, bevor der Connector HotelPlusFlightResultsHotelSelection aufgerufen wird. Ziel des Formulares ist es, aus mehreren Einträgen einer Auszuwählen. Dieser kann jedoch nicht mehr zurück ins Bonita überführt werden, weshalb es zu obigen Fehler kommt wenn der Connector aufgerufen wird.
+Der Fehler tritt nach dem Select Hotel Task auf, wenn der Connector HotelPlusFlightResultsHotelSelection aufgerufen wird. Ziel des Connectors ist es das gewählte Hotel aus der Liste der Resultate auszuwählen.
 
-Folgendes wurde versucht den Fehler zu beheben
+Der Fehler liegt gemäss der Logmeldung in dem Input Parameter, welcher an den Connector übergeben wird.
+Unklar war, ob der Fehler in der Operations des Formulares liegt, oder am Connector selber.
 
 \subsubsection{Script zum Abspeichern der Formularwerte}
 Mit Groovy\footcite{Groovy_2016-06-25} kann man die Formularwerte bearbeitet, welche von den Formularen zurückgeliefert werden.
-Es wurde folgendes Script definiert, um den Wert des Formulares in ein \gls{bdm} zu überführen damit Bonita diesen weiterverwenden kann.
+Es wurde folgendes Script definiert, um den Wert des Formulares in ein \gls{bdm} zu überführen damit Bonita diesen weiterverwenden kann. Dies wurde durchgeführt in der Vermutung, dass eventuell der Fehler innerhalb der Operations des Formulares liegt.
 \begin{lstlisting}[language=Groovy,firstnumber=1]
 def hotels = new java.util.ArrayList()
 hotelPlusFlightResultsInput.hotels.each{
@@ -319,7 +320,7 @@ return results
 Der Fehler blieb jedoch der selbe.
 
 \subsubsection{Standartwerte definieren}
-Es wurde ein neues Pool Variable vom Typ  HotelPlusFlightResults, welche mit fix vorgegebenen Werten befüllt wurde. Dies sollte testen, ob somit der Fehler nicht mehr angezeigt wird. Auch dies wurde mit einem Groovy Script bewerkstelligt.
+Es wurde ein neues Pool Variable vom Typ  HotelPlusFlightResults, welche mit fix vorgegebenen Werten befüllt wurde. Dies sollte ausschliessen, dass das Problem im Formular liegt. Auch dies wurde mit einem Groovy Script bewerkstelligt.
 
 \begin{lstlisting}[language=Groovy,firstnumber=1]
 def hotel1 = new com.travelwindow.model.HotelPlusFlightResultHotel()
@@ -348,7 +349,7 @@ results.setHotels(hotels)
 return results
 \end{lstlisting}
 
-Der Fehler blieb jeodch der gleiche.
+Der Fehler blieb weiterhin bestehen.
 
 \subsubsection{Input Parameter des Connectors entfernen}
 Nun wurde versucht, der Input Parameter des HotelPlusFlightResultsHotelSelection auf der Connector Definition zu entfernen.
@@ -362,7 +363,7 @@ Jedoch blieb der Fehler der Selbe.
 Als letzte Möglichkeit wurde der Connector aus dem Task Select Hotel entfernt. Damit verschwand auch der Fehler und der Prozess konnte durchgeführt werden.
 
 \subsubsection{Konsequenz}
-Da der Connector aus dem Select Hotel Task entfernt werden musste, wurden keine Daten mehr ins Bonita übernommen (siehe \cref{sec:umsetzung:problem:removeconnector} \nameref{sec:umsetzung:problem:removeconnector}). Deshalb wurde für alle Formulare Standartwerte Definiert, so dass der Prozess zumindest durch getestet werden kann.
+Es wurde noch weiter versucht, dieses Problem zu beheben. Jedoch ohne Erfolg. Auch im Forum des Herstellers gab es keine Abhilfe. Deshalb mussten die Connectors auf den Tasks Select Hotel, Select Room Config und Select Flight entfernt werden, um mindestens in der Lage zu sein den Prozess bis ans Ende durchzuführen. Deshalb wurde für alle Formulare Standartwerte Definiert, so dass der Prozess zumindest durch getestet werden kann.
 
 Ein Beispiel für Standartwerte des Flugselections-Formular:
 \begin{lstlisting}[language=json,firstnumber=1]
