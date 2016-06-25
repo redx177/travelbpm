@@ -241,3 +241,141 @@ Folgender Contract und Operations mussten spezifiziert werden:
 		hotelPlusFlightFlightResult & setFlight & H+FFlightsInput.flight \\ \hline
 	\end{tabular} 
 \end{table}
+
+\section{Probleme}
+Es gab zwei Prolbeme, welche es verunmöglichten einen sauberen Prozess durchzuführen. Diese werden nachfolgend beschrieben.
+
+\subsection{Rückgabewert der Connectors}
+Der Connector HotelPlusFlight Search gibt ein HotelPlusFlightResults \gls{bdm} zurück. Dieses wird beim Connector Output in eine Pool Variable geschrieben. Dabei tritt folgender Fehler auf:
+\begin{lstlisting}
+java.lang.reflect.InvocationTargetException
+com.thoughtworks.xstream.converters.ConversionException: com.travelwindow.model.HotelPlusFlightResults : com.travelwindow.model.HotelPlusFlightResults
+---- Debugging information ----
+message : com.travelwindow.model.HotelPlusFlightResults
+cause-exception : com.thoughtworks.xstream.mapper.CannotResolveClassException
+cause-message : com.travelwindow.model.HotelPlusFlightResults
+class : java.util.HashMap
+required-type : java.util.HashMap
+converter-type : com.thoughtworks.xstream.converters.collections.MapConverter
+path : /map/entry/com.travelwindow.model.HotelPlusFlightResults
+line number : 5
+version : null
+
+com.thoughtworks.xstream.mapper.CannotResolveClassException: com.travelwindow.model.HotelPlusFlightResults
+\end{lstlisting}
+Bonita unterstützt Groovy Scripts\footcite{Groovy_2016-06-25}, mit welcher man Daten verarbeiten kann. Es wurde versucht damit das Problem zu beheben.
+
+Folgender Groovy Code wurde verwendet um das Mapping für die HotelPlusFlightResults durchzuführen:
+\begin{lstlisting}[language=Groovy,firstnumber=1]
+import groovy.json.JsonBuilder
+import com.travelwindow.model.HotelPlusFlightResults
+import com.travelwindow.model.HotelPlusFlightResultHotel
+
+def mappedData = new HotelPlusFlightResults()
+for (hotel in hotelPlusFlightResults.getHotels()) {
+	def tempHotel = new HotelPlusFlightResultHotel()
+	tempHotel.name = comment.name
+	tempHotel.image = comment.image
+	tempHotel.price = comment.price
+	mappedData.hotels.add(tempHotel)
+}
+return mappedData
+\end{lstlisting}
+Leider konnte der Fehler dadurch nicht behoben werden. Es wurden stattdessen Standartwerte auf den Pool Variablen definiert damit der Prozess durchgeführt werden kann.
+
+\subsection{\glspl{bdm} befüllen}
+Das Aufsetzten der Formulare und die Konfiguration der Contract und Operations verlief Problemlos. Jedoch gab es Probleme beim Abfüllen der \glspl{bdm} nach den Formularen. Dadurch gab es im Bonita Log folgende Meldung:
+
+\begin{lstlisting}[firstnumber=1]
+SEVERE: THREAD_ID=119 | HOSTNAME=Slang-ThinkPad | TENANT_ID=1 | The work [ExecuteConnectorOfActivity: flowNodeInstanceId = 240003, connectorDefinitionName = HotelPlusFlighResultsHotelSelection] failed. The failure will be handled.
+2016-06-25 15:07:57.211 +0200 org.bonitasoft.engine.execution.work.FailureHandlingBonitaWork org.bonitasoft.engine.log.technical.TechnicalLoggerSLF4JImpl log 
+SEVERE: THREAD_ID=119 | HOSTNAME=Slang-ThinkPad | TENANT_ID=1 | org.bonitasoft.engine.persistence.SRetryableException : "Groovyx.persistence.PersistenceException: org.hibernate.PropertyValueException: not-null property references a null or transient value: com.travelwindow.model.HotelPlusFlightResultHotel._hotels_HOTELPLUSFLIGHTRESULTS_PIDBackref"
+org.bonitasoft.engine.persistence.SRetryableException: javax.persistence.PersistenceException: org.hibernate.PropertyValueException: not-null property references a null or transient value: com.travelwindow.model.HotelPlusFlightResultHotel._hotels_HOTELPLUSFLIGHTRESULTS_PIDBackref
+\end{lstlisting}
+
+Der Fehler tritt nach dem Select Hotel Task auf, bevor der Connector HotelPlusFlightResultsHotelSelection aufgerufen wird. Ziel des Formulares ist es, aus mehreren Einträgen einer Auszuwählen. Dieser kann jedoch nicht mehr zurück ins Bonita überführt werden, weshalb es zu obigen Fehler kommt wenn der Connector aufgerufen wird.
+
+Folgendes wurde versucht den Fehler zu beheben
+
+\subsubsection{Script zum Abspeichern der Formularwerte}
+Mit Groovy\footcite{Groovy_2016-06-25} kann man die Formularwerte bearbeitet, welche von den Formularen zurückgeliefert werden.
+Es wurde folgendes Script definiert, um den Wert des Formulares in ein \gls{bdm} zu überführen damit Bonita diesen weiterverwenden kann.
+\begin{lstlisting}[language=Groovy,firstnumber=1]
+def hotels = new java.util.ArrayList()
+hotelPlusFlightResultsInput.hotels.each{
+	hotels.add({ currentHotelInput ->
+		def tempHotel = new com.travelwindow.model.HotelPlusFlightResultHotel()
+		tempHotel.name = currentHotelInput.name
+		tempHotel.price = currentHotelInput.price
+		tempHotel.image = currentHotelInput.image
+		return tempHotel
+	}(it))
+}
+def results = new com.travelwindow.model.HotelPlusFlightResults()
+results.setHotels(hotels)
+return results
+\end{lstlisting}
+
+Der Fehler blieb jedoch der selbe.
+
+\subsubsection{Standartwerte definieren}
+Es wurde ein neues Pool Variable vom Typ  HotelPlusFlightResults, welche mit fix vorgegebenen Werten befüllt wurde. Dies sollte testen, ob somit der Fehler nicht mehr angezeigt wird. Auch dies wurde mit einem Groovy Script bewerkstelligt.
+
+\begin{lstlisting}[language=Groovy,firstnumber=1]
+def hotel1 = new com.travelwindow.model.HotelPlusFlightResultHotel()
+hotel1.name = "Radisson Blu Hotel Berlin"
+hotel1.image = "https://t-static.net/pictures/Hotel/Hotelbeds/9274/009274a_hb_ba_003.jpg?width=240&height=180&scale=both&mode=crop"
+hotel1.price = "482 CHF"
+
+
+def hotel2 = new com.travelwindow.model.HotelPlusFlightResultHotel()
+hotel2.name = "NH Berlin Mitte"
+hotel2.image = "https://t-static.net/pictures/Hotel/Hotelbeds/8819/008819a_hb_ba_008.jpg?width=240&height=180&scale=both&mode=crop"
+hotel2.price = "403 CHF"
+
+def hotel3 = new com.travelwindow.model.HotelPlusFlightResultHotel()
+hotel3.name = "Wyndham Berlin Excelsior"
+hotel3.image = "https://t-static.net/pictures/Hotel/Hotelbeds/5847/005847a_hb_l_010.jpg?width=240&height=180&scale=both&mode=crop"
+hotel3.price = "350 CHF"
+
+def hotels = new java.util.ArrayList()
+hotels.add(hotel1)
+hotels.add(hotel2)
+hotels.add(hotel3)
+
+def results = new com.travelwindow.model.HotelPlusFlightResults()
+results.setHotels(hotels)
+return results
+\end{lstlisting}
+
+Der Fehler blieb jeodch der gleiche.
+
+\subsubsection{Input Parameter des Connectors entfernen}
+Nun wurde versucht, der Input Parameter des HotelPlusFlightResultsHotelSelection auf der Connector Definition zu entfernen.
+
+Danach musste der Out Connector auf dem Select Hotel Task noch angepasst werden, um der Änderung in der Definition zu entsprechen.
+
+Jedoch blieb der Fehler der Selbe.
+
+\subsubsection{Connector entfernen}
+\label{sec:umsetzung:problem:removeconnector}
+Als letzte Möglichkeit wurde der Connector aus dem Task Select Hotel entfernt. Damit verschwand auch der Fehler und der Prozess konnte durchgeführt werden.
+
+\subsubsection{Konsequenz}
+Da der Connector aus dem Select Hotel Task entfernt werden musste, wurden keine Daten mehr ins Bonita übernommen (siehe \cref{sec:umsetzung:problem:removeconnector} \nameref{sec:umsetzung:problem:removeconnector}). Deshalb wurde für alle Formulare Standartwerte Definiert, so dass der Prozess zumindest durch getestet werden kann.
+
+Ein Beispiel für Standartwerte des Flugselections-Formular:
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+  "hotelPlusFlightFlightResultsInput" : {
+    "flights" : [
+        { "Airline": "LH", "FromAirport": "ZRH", "ToAirport": "TXL", "Flight1FromTime": "20.10.2016 20:15", 
+        "Flight1ToTime": "20.10.2016 22:15", "Flight2FromTime": "22.10.2016 12:25", "Flight2ToTime": "22.10.2016 14:35"},
+        { "Airline": "LX", "FromAirport": "ZRH", "ToAirport": "TXL", "Flight1FromTime": "20.10.2016 16:00", 
+        "Flight1ToTime": "20.10.2016 18:05", "Flight2FromTime": "22.10.2016 20:45", "Flight2ToTime": "22.10.2016 22:40"},
+        { "Airline": "LX", "FromAirport": "ZRH", "ToAirport": "TXL", "Flight1FromTime": "20.10.2016 06:30", 
+        "Flight1ToTime": "20.10.2016 08:35", "Flight2FromTime": "22.10.2016 16:00", "Flight2ToTime": "22.10.2016 18:00"}
+    ]
+  }
+}
+\end{lstlisting}
