@@ -18,7 +18,7 @@ Der Prozess wurde equivalent aufgesetzt, wie es im \cref{sec:konzept:prozess} \n
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{images/umsetzung-prozess.png}
-	\caption{Prozess im Bonita}
+	\caption{Prozess im Bonita BPM}
 	\label{fig:umsetzung:prozess}
 \end{figure}
 Das Icon oben Links in den Task signalisiert, dass es sich dabei um einen Human Task handelt und eine Benutzerinteraktion erforderlich ist. Das Bild oben rechts in den Task zeigt an, dass es einen Connector auf dem Task gibt.
@@ -85,10 +85,10 @@ Auf der Poolebene wurde für jedes \gls{bdm} eine Pool Variable erstellt. Der Na
 Die Formulare wurden bereits für die Mockups im \cref{sec:konzept:mockups} \nameref{sec:konzept:mockups} erstellt und konnten gleich wiederverwendet werden. Deshalb wird hier auf eine erneute Aufliestung verzichtet.
 
 \section{Connectors}
-Nachfolgend werden die Definitionen und Implementationen der Connectors beschrieben. Zusätzlich werden für deren Ausführung weitere Abhängigkeiten benötigt, welche in Bonita definiert werden müssen.
+Nachfolgend werden die Definitionen und Implementationen der Connectors beschrieben. Zusätzlich werden für deren Ausführung weitere Abhängigkeiten benötigt, welche in Bonita BPM definiert werden müssen.
 
 \subsection{Abhängigkeiten}
-Für die Ausführung der Connectoren können in Bonita weitere Libraries hinterlegt werden. Für dieses Projekt wurde zusätzlich zwei Abhängigkeiten definiert. Zum einen Gson\footcite{Gson_2016-06-12}, für die Bearbeitung von JSON, and Handy URI Templates\footcite{HandyUriTempaltes_2016-06-12}, für die Verarbeitug von URI Templates gemäss RFC 6570\footcite{RFC_6570_-_URI_Template_2016-06-21}
+Für die Ausführung der Connectoren können in Bonita BPM weitere Libraries hinterlegt werden. Für dieses Projekt wurde zusätzlich zwei Abhängigkeiten definiert. Zum einen Gson\footcite{Gson_2016-06-12}, für die Bearbeitung von JSON, and Handy URI Templates\footcite{HandyUriTempaltes_2016-06-12}, für die Verarbeitug von URI Templates gemäss RFC 6570\footcite{RFC_6570_-_URI_Template_2016-06-21}
 
 \subsection{Definitions}
 Es wurden vier Definitionen erstellt, für jeden Task einen.
@@ -263,7 +263,7 @@ version : null
 
 com.thoughtworks.xstream.mapper.CannotResolveClassException: com.travelwindow.model.HotelPlusFlightResults
 \end{lstlisting}
-Bonita unterstützt Groovy Scripts\footcite{Groovy_2016-06-25}, mit welcher man Daten verarbeiten kann. Es wurde versucht damit das Problem zu beheben.
+Bonita BPM unterstützt Groovy Scripts\footcite{Groovy_2016-06-25}, mit welcher man Daten verarbeiten kann. Es wurde versucht damit das Problem zu beheben.
 
 Folgender Groovy Code wurde verwendet um das Mapping für die HotelPlusFlightResults durchzuführen:
 \begin{lstlisting}[language=Groovy,firstnumber=1]
@@ -300,7 +300,7 @@ Unklar war, ob der Fehler in der Operations des Formulares liegt, oder am Connec
 
 \subsubsection{Script zum Abspeichern der Formularwerte}
 Mit Groovy\footcite{Groovy_2016-06-25} kann man die Formularwerte bearbeitet, welche von den Formularen zurückgeliefert werden.
-Es wurde folgendes Script definiert, um den Wert des Formulares in ein \gls{bdm} zu überführen damit Bonita diesen weiterverwenden kann. Dies wurde durchgeführt in der Vermutung, dass eventuell der Fehler innerhalb der Operations des Formulares liegt.
+Es wurde folgendes Script definiert, um den Wert des Formulares in ein \gls{bdm} zu überführen damit Bonita BPM diesen weiterverwenden kann. Dies wurde durchgeführt in der Vermutung, dass eventuell der Fehler innerhalb der Operations des Formulares liegt.
 \begin{lstlisting}[language=Groovy,firstnumber=1]
 def hotels = new java.util.ArrayList()
 hotelPlusFlightResultsInput.hotels.each{

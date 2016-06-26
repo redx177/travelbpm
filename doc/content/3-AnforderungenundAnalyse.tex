@@ -352,10 +352,10 @@ Die \gls{url} der Umgebung lautet: https://dev-api.travel.ch
 \subsection{Checkout}
 Der Checkout gibt es in der Testumgebung seit dem letzten Projekt nicht mehr. Dieser wurde ausgelagert in eine Umgebung die nicht mehr unserem Team unterstellt ist und kann somit nicht nur BPMN modelliert werden.
 
-\section{Bonita}
-Also BPMN Programm wurde Bonita festgelegt (siehe \cref{sec:Recherche:programme:analyse} \nameref{sec:Recherche:programme:analyse}). Es bietet zwar nicht die gesamte benötigte Features, ist jedoch auf Unix und auf Windows lauffähig und gratis. In diesem Abschnitt wird eine Einführung in das Tool gegeben. 
+\section{Bonita BPM}
+Also BPMN Programm wurde Bonita BPM festgelegt (siehe \cref{sec:Recherche:programme:analyse} \nameref{sec:Recherche:programme:analyse}). Es bietet zwar nicht die gesamte benötigte Features, ist jedoch auf Unix und auf Windows lauffähig und gratis. In diesem Abschnitt wird eine Einführung in das Tool gegeben. 
 
-Bonita wird von der Firma Bonitasoft entwickelt und besteht aus einem Programm, welches in Java geschrieben ist, sowie aus einem Webseite, welcher standardmässig auf einem mitgelieferten Tomcat Webserver\footcite{Tomcat_2016-06-12} läuft.
+Bonita BPM wird von der Firma Bonitasoft entwickelt und besteht aus einem Programm, welches in Java geschrieben ist, sowie aus einem Webseite, welcher standardmässig auf einem mitgelieferten Tomcat Webserver\footcite{Tomcat_2016-06-12} läuft.
 Nachfolgend wird das Interface des Programmes und die verwendeten Funktionen der Software beschrieben.
 
 \subsection{Interface}
@@ -363,14 +363,14 @@ Wenn man ein neues Projekt erstellt, sieht das Programm folgendermassen aus:
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{images/bonita.png}
-	\caption{Bonita Interface}
+	\caption{Bonita BPM Interface}
 	\label{fig:analyse:bonita:interface}
 \end{figure}
 Zuoberst ist die Toolbar. Darunter auf der linken Seite sind die BPMN Elemente (siehe \cref{sec:Recherche:bpmn:notation} \nameref{sec:Recherche:bpmn:notation}) wie z.B. die Swimlanes, Gateways und Events. Daneben kann der Prozess definiert werden in der Process View. Bei einem neuen Projekt hat es einen Start Event (mit dem Namen "`Start1"') und ein Task "`Step1"'. Bei dem Task hat es links oben ein Benutzer Icon. Dieses sagt aus, dass es sich um einen Human Task handelt, bei welchem eine Benutzerinteraktion benötigt wird.
 
 Zuunterst links ist eine Übersicht über alle Elemente im Projekt (Tree View) und daneben können die BPMN Elemente im Projekt konfiguriert werden (Configuration View).
 
-Bonita ist mit Java implementiert. Auch die Erweiterungen (siehe \cref{sec:analyse:bonita:connectors} \nameref{sec:analyse:bonita:connectors}) werden in dieser Sprache entwickelt. Für das Verständnis wird vorausgesetzt, dass man grundlegendes Wissen für Java Begriffe besitzt (z.B. Namespace, Class, Implementation, Interface, etc.).
+Bonita BPM ist mit Java implementiert. Auch die Erweiterungen (siehe \cref{sec:analyse:bonita:connectors} \nameref{sec:analyse:bonita:connectors}) werden in dieser Sprache entwickelt. Für das Verständnis wird vorausgesetzt, dass man grundlegendes Wissen für Java Begriffe besitzt (z.B. Namespace, Class, Implementation, Interface, etc.).
 
 \subsection{Business Data Model}
 \gls{bdm} werden für die Modellierung der Daten benötigt. Connectoren können später diese Daten entgegen nehmen oder zurückgeben. Intern handelt es sich dabei um Java Classes.
@@ -380,7 +380,7 @@ Ein \gls{bdm} hat einen Namen und Felder. Felder haben wiederum einen Namen und 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/bonita-bpm.png}
-	\caption{Bonita BPM}
+	\caption{Bonita BPM Business Data Model}
 	\label{fig:analyse:bonita:bpm}
 \end{figure}
 
@@ -389,15 +389,15 @@ Ist in der Process View ein Pool angewählt, so kann in der Configuration View u
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/bonita-poolvariables.png}
-	\caption{Bonita Pool Variables}
+	\caption{Bonita BPM Pool Variables}
 	\label{fig:analyse:bonita:bpm:poolvariables}
 \end{figure}
 
 \subsection{Connectors}
 \label{sec:analyse:bonita:connectors}
-Connectors werden in Bonita dazu verwendet, um eine Aktion durchzuführen. 
+Connectors werden in Bonita BPM dazu verwendet, um eine Aktion durchzuführen. 
 
-Bonita wird mit folgenden Connectors ausgeliefert:
+Follgende Connectoren werden mit der Software ausgeliefert:
 \begin{itemize}
 \item CMS
 \item CRM
@@ -413,11 +413,11 @@ Bonita wird mit folgenden Connectors ausgeliefert:
 \item Talend
 \end{itemize}
 
-Connectors können einem Task angehängt werden. Klickt man einen Task in der Process View an, kann man in der Configuration View unter Execution Connectors hinzufügen.
+Connectors werden einem Prozess angehängt. Klickt man einen Task in der Process View an, kann man in der Configuration View unter Execution Connectors hinzufügen.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{images/bonita-connectors.png}
-	\caption{Bonita Connectors}
+	\caption{Bonita BPM Connectors}
 	\label{fig:analyse:bonita:connectors}
 \end{figure}
 Es gibt in und out Connectors. Diese werden entweder vor dem Task, oder nach dem Task ausgeführt. Bei einem Human Task kann so definiert werden, ob der Connector vor der Benutzerinteraktion ausgeführt wird oder danach.
@@ -432,7 +432,7 @@ Um eine Implementation eines Connectors anzulegen, muss zuerst eine Definition g
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{images/bonita-connectors-implementation.png}
-	\caption{Bonita Connector Implementation}
+	\caption{Bonita BPM Connector Implementation}
 	\label{fig:analyse:bonita:connectors:implementation}
 \end{figure}
 Die Implementation id kann frei gewählt werden, muss im Projekt jedoch eindeutig sein. Der Class name ist der Name der Java Klasse die erstellt wird. Dependencies sind JAR Files welche von innerhalb der Java Klasse benötigt werden.
@@ -453,7 +453,7 @@ Ein Contract definiert die Daten, die vom Formular erwartet werden. Sie sind daf
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{images/bonita-contract.png}
-	\caption{Bonita Form Contract}
+	\caption{Bonita BPM Form Contract}
 	\label{fig:analyse:bonita:forms:contract}
 \end{figure}
 
@@ -464,7 +464,7 @@ Operations werden nach der Ausführung des Formulars ausgeführt. Sie definieren
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{images/bonita-operations.png}
-	\caption{Bonita Form Operations}
+	\caption{Bonita BPM Form Operations}
 	\label{fig:analyse:bonita:forms:operations}
 \end{figure}
 Im obigen Beispiel wird definiert, dass auf der Pool Variable hotelPlusFlightSearch die Java Methode setDestination aufgerufen wird. Der Methode wird der Wert hotelPlusFlightSearchInput.destination übergeben. Bei hotelPlusFlightSearchInput handelt es sich um eine Variable, welche auf dem Formular definiert wurde (siehe \nameref{sec:analyse:bonita:forms:forms}).
@@ -477,7 +477,7 @@ Um ein Formular aus den Daten des Contracts und der Operations zu erstellen, mus
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{images/bonita-forms-create.png}
-	\caption{Bonita Form erstellung aus Contract und Operations}
+	\caption{Bonita BPM Form erstellung aus Contract und Operations}
 	\label{fig:analyse:bonita:forms:forms:creation}
 \end{figure}
 

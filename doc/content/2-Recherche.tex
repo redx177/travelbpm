@@ -3,7 +3,7 @@
 In diesem Kapitel wird erklärt was BPMN ist, es werden die Rahmenbedingungen umrissen und die verschiedenen Programme analysiert welche für die Umsetzung in Frage kommen.
 
 \section{BPMN}
-BPMN steht für Business Process Model and Notation. Dabei handelt es sich um eine genormte Visualisierung für Business Processes. Entwickelt wurde der Standart im Jahre 2001 durch die Firma IBM.
+BPMN steht für Business Process Model and Notation. Dabei handelt es sich um eine genormte Visualisierung für Business Processes. Entwickelt wurde der Standard im Jahre 2001 durch die Firma IBM.
 
 \subsection{Notation}
 \label{sec:Recherche:bpmn:notation}
@@ -36,7 +36,7 @@ Ein Pool kennzeichnet einen Participant, einen Benutzer oder Benutzerrolle in ei
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/bpmn-example.png}
-	\caption{Example}
+	\caption{BPMN Example}
 	\label{fig:recherche:bpmn:example}
 \end{figure}
 Dies ist eine einfaches Beispiel eines Vacation Request Prozesses. Der Arbeitnehmer startet den Prozess und stellt seine Ferienanfrage. Die Anfrage wird von der Personalabteilung weiterverwendet und entscheidet, ob die Anfrage genehmigt wird oder nicht.
@@ -60,10 +60,10 @@ Der Prozess der Hotel und Flug Suche auf der travel.ch Webseite ist linear. Nach
 \label{sec:Recherche:rahmenbedingungen:api}
 Travel.ch besteht aus einer Webseite und einer \Gls{glos:api}. Für die Ausführung der Prozesse via BPMN muss die API angesprochen werden. Diese liefert daten in \Gls{glos:json} aus. Programme für das ausführen des travel.ch BPMN Prozesses muss demnach den Austausch von Daten über eine \Gls{glos:api} mittels \Gls{glos:json} ermöglichen.
 
-\subsection{Betriebsystem}
-Die travel.ch Webseite wird über eine \Gls{glos:api} betrieben, welche mittels eines BPMN Programmes abgefragt werden soll. Diese \Gls{glos:api} ist nur vom Firmennetzwerk aus erreichbar. In der Firma sind nur Rechner mit dem Windows Betriebsystem im Einsatz.
+\subsection{Betriebssystem}
+Die travel.ch Webseite wird über eine \Gls{glos:api} betrieben, welche mittels eines BPMN Programmes abgefragt werden soll. Diese \Gls{glos:api} ist nur vom Firmennetzwerk aus erreichbar. In der Firma sind nur Rechner mit dem Windows Betriebssystem im Einsatz.
 
-Das Entwicklungssystem des Programmierers ist eine Linux Mint Computer. Dabei handelt es sich um ein Unix basiertes Betriebsystem.
+Das Entwicklungssystem des Programmierers ist eine Linux Mint Computer. Dabei handelt es sich um ein Unix basiertes Betriebssystem.
 
 Es ist demnach zwingend Notwendig, dass das BPMN Programm auf Windows, sowie auf Unix basierten Betriebssystemen läuft.
 
@@ -93,7 +93,7 @@ Im Feld Personen/Zimmer kann man Räume definieren und wie viele Passagiere in d
 	\caption{Hotel und Flug Hotelresultate auf travel.ch}
 	\label{fig:recherche:travelch:results}
 \end{figure}
-Bei den Hotelresultaten gibt es links eine Filtrierung der Ergebnisse, welche Rechts dargestellt werden. Diese bestehen aus:
+Bei den Hotelresultaten gibt es links eine Filterung der Ergebnisse, welche Rechts dargestellt werden. Diese bestehen aus:
 \begin{itemize}
 \item Hauptbild
 \item Namen des Hotels
@@ -110,7 +110,7 @@ Bei den Hotelresultaten gibt es links eine Filtrierung der Ergebnisse, welche Re
 	\caption{Hotelconfiguration von Hotel und Flug auf travel.ch}
 	\label{fig:recherche:travelch:configuration}
 \end{figure}
-Auf der Konfigurationsseite des Hotels werden weitere Informationen wie Checkin-Daten, Hoteldetails, Detailierten Bewertungen, Hotelfacts, etc. angezeigt. Das wichtigste ist jedoch die oben dargestellte Matrix. Sie erlaubt dem Kunden das Hotelzimmer zu konfigurieren. Die Spalten der Matrix sind die Zimmer-, und die Kolonnen die Verpflegungstypen.
+Auf der Konfigurationsseite des Hotels werden weitere Informationen wie Checkin-Daten, Hoteldetails, detaillierten Bewertungen, Hotelfacts, etc. angezeigt. Das wichtigste ist jedoch die oben dargestellte Matrix. Sie erlaubt dem Kunden das Hotelzimmer zu konfigurieren. Die Spalten der Matrix sind die Zimmer-, und die Kolonnen die Verpflegungstypen.
 
 \begin{figure}[H]
 	\centering
@@ -152,9 +152,9 @@ Die folgende Tabelle vergleicht verschiedene BPMN Tools auf die zuvor definierte
 		Camuda\footcite{Camuda_2016-06-12} & x & x &  &  & x \\ \hline
 		
 		Drools\footcite{Drools_2016-06-12} & x & x &  &  & x \\ \hline
-		Bonita\footcite{Bonitasoft_2016-06-12} & x & x & & x & x \\ \hline
+		Bonita BPM\footcite{Bonitasoft_2016-06-12} & x & x & & x & x \\ \hline
 		BizTalk\footcite{BizTalk_2016-06-12} & x &  & x & x &  \\ \hline		
 	\end{tabular} 
 \end{table}
 
-Von den Funktionen ist Microsoft's BizTalk die geeignetste Variante. Jedoch läuft dieses Programm nicht auf Linux und es ist nicht gratis. Die zweitbeste Wahl ist Bonita von Bonitasoft, welches keine \Gls{glos:api} Anfragen mittels \Gls{glos:json} unterstützt.
+Von den Funktionen ist Microsoft's BizTalk die geeignetste Variante. Jedoch läuft dieses Programm nicht auf Linux und es ist nicht gratis. Die zweitbeste Wahl ist Bonita BPM von Bonitasoft, welches keine \Gls{glos:api} Anfragen mittels \Gls{glos:json} unterstützt.
