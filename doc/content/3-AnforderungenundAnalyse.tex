@@ -3,13 +3,13 @@
 
 \chapter{Anforderungen und Analyse}
 \label{sec:analyse}
-In diesem Kapitel werden die technischen Aspekte der API der travelwindow AG beschrieben, sowie die eingesetzte BPMN Software beschrieben.
+In diesem Kapitel werden die technischen Aspekte der API der travelwindow AG beschrieben sowie die eingesetzte BPMN Software beschrieben.
 
 \section{Anaylse der travelwindow AG API}
 \label{sec:analyse:api}
-Die \Gls{glos:api} der travelwindow AG ist mit \Gls{glos:hal} aufgebaut. Sprich es gibt einen Einstiegspunkt, welcher unter "`/"' erreichbar ist. Danach navigiert man sich über Links durch die Schnittstelle durch. Dies macht die API frei erkundbar, jedoch die Umsetzung mittels BPMN komplexer.
+Die \Gls{glos:api} der travelwindow AG ist mit \Gls{glos:hal} aufgebaut. Demnach es gibt einen Einstiegspunkt, welcher unter "`/"' erreichbar ist. Danach navigiert man sich über Links durch die Schnittstelle durch. Dies macht die API frei erkundbar, jedoch die Umsetzung mittels BPMN komplexer.
 
-Nachfolgend werden die benötigten Anfragen an die API aufgeführt, welche für die Suche eines Hotel und Flug Angebotes benötigt werden (siehe \cref{sec:Recherche:rahmenbedingungen:prozesse} \nameref{sec:Recherche:rahmenbedingungen:prozesse}). Die aufgeführten Antworten sind für eine bessere Übersichtlichkeit verkürzt.
+Nachfolgend werden die benötigten Anfragen an die API aufgeführt, welche für die Suche eines Angebotes von Hotel und Flug benötigt werden (siehe \cref{sec:Recherche:rahmenbedingungen:prozesse} \nameref{sec:Recherche:rahmenbedingungen:prozesse}). Die aufgeführten Antworten sind für eine bessere Übersichtlichkeit verkürzt.
 
 
 \begin{lstlisting}[language=json,firstnumber=1]
@@ -20,7 +20,7 @@ Nachfolgend werden die benötigten Anfragen an die API aufgeführt, welche für 
 	[...]
 }
 \end{lstlisting}
-Dies ist die Root Ressource. Das Feld hotelPlusFlightSearch ist der Einstigspunkt für die Hotel und Flug Suche.
+Dies ist die Root Ressource. Das Feld hotelPlusFlightSearch ist der Einstigspunkt für die Suche von Hotel und Flug.
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
@@ -84,7 +84,7 @@ Hier wird auch beschrieben, wie eine Suche ausgeführt werden kann. Im Feld form
   [...]
 }
 \end{lstlisting}
-Dies ist die SearchFormDescription für die Hotel und Flug Suche. Sie beschreibt die Parameter, welche für eine Suche benutzt werden können.
+Dies ist die SearchFormDescription für die Suche von Hotel und Flug. Sie beschreibt die Parameter, welche für eine Suche benutzt werden können.
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
@@ -111,7 +111,7 @@ Dies ist die SearchFormDescription für die Hotel und Flug Suche. Sie beschreibt
   }
 }
 \end{lstlisting}
-Bei dieser Anfrage handelt es sich um eine Suche, dieses mal mit Suchparametern. Das Feld results ist nun mit einer SearchResultPage befüllt.
+Bei dieser Anfrage handelt es sich um eine Suche. Dieses mal mit Suchparametern. Das Feld results ist nun mit einer SearchResultPage befüllt.
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
@@ -141,7 +141,7 @@ Bei dieser Anfrage handelt es sich um eine Suche, dieses mal mit Suchparametern.
   }
 }
 \end{lstlisting}
-Dies ist die SearchResultPage. Auf travel.ch wird diese verwendet, um die Resultate weiter zu filtrieren. Dies ist jedoch bei diesem Projekt nicht vorgesehen. Von dieser Anfrage wird nur das Feld results benötigt, welches die Suchresultate beinhaltet.
+Dies ist die SearchResultPage. Auf travel.ch wird diese verwendet, um die Resultate weiter zu filtrieren. Es ist jedoch bei diesem Projekt nicht vorgesehen. Von dieser Anfrage wird nur das Feld results benötigt, welches die Suchresultate beinhaltet.
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
@@ -180,7 +180,7 @@ Dies ist die SearchResultPage. Auf travel.ch wird diese verwendet, um die Result
   ]
 }
 \end{lstlisting}
-Das sind die Hotelresultate der Suche. Diese Antwort ist sehr verkürzt. Es wird nur ein Resultat hier angezeigt um die Übersicht zu behalten.
+Das sind die Hotelresultate der Suche. Diese Antwort ist sehr verkürzt. Es wird nur ein Resultat hier angezeigt, um die Übersicht zu behalten.
 
 
 
@@ -291,7 +291,7 @@ Das sind die Hotelresultate der Suche. Diese Antwort ist sehr verkürzt. Es wird
   "tourOperatorGtcUrl":null
 }
 \end{lstlisting}
-Jedes Suchresultat der vorherigen Anfrage beinhaltet eine solche (oben) HotelInformation. Diese beherbergt alle Informationen eines Hotels, die nicht an ein Angebot gebunden ist. Zum Beispiel Bilder, Beschreibungen, etc. Was nicht enthalten ist sind Preise.
+Jedes Suchresultat der vorherigen Anfrage beinhaltet eine solche (oben) HotelInformation. Diese beherbergt alle Informationen eines Hotels, die nicht an ein Angebot gebunden sind. Zum Beispiel Bilder, Beschreibungen, etc. Was nicht enthalten ist, sind Preise.
 
 
 
@@ -341,21 +341,21 @@ Jedes Suchresultat der vorherigen Anfrage beinhaltet eine solche (oben) HotelInf
   "transfer":{ "href":"https://dev-api.travel.ch/HotelPlusFlight/Transfer/NotIncluded" }
 }
 \end{lstlisting}
-Dies ist ein Offer und Zeigt die Hotelzimmer Konfigurationen (RoomTypes, MealTypes) und die Flüge, welche zum Hotel gebucht werden können.
+Hierbei handelt es sich um ein Offer und zeigt die Hotelzimmer Konfigurationen (RoomTypes, MealTypes) und die Flüge, welche zum Hotel gebucht werden können.
 
-Aus dieser Auflistung wird ersichtlich, dass es sehr viele API Anfragen benötigt, um eine Produkt auszuwählen. Hier wurden noch diverse andere Requests weggelassen. Zum Beispiel müssen noch Destinationen, Preisbeschreibungen, etc. abgeholten werden. Diese sind für das Verständnis jedoch nicht nötig und wurden deshalb weggelassen.
+Aus dieser Auflistung wird ersichtlich, dass es sehr viele API Anfragen benötigt, um ein Produkt auszuwählen. Hier wurden noch diverse andere Requests weggelassen. Zum Beispiel müssen noch Destinationen, Preisbeschreibungen, etc. abgeholten werden. Diese sind für das Verständnis jedoch nicht nötig und wurden deshalb weggelassen.
 
 \subsection{Testumgebung}
 Für dieses Projekt muss die Testumgebung verwendet werden. Dies stellt sicher, dass keine Testbuchungen ins produktive System gelangen und die Authorisierungsdaten der Live-API nicht veröffentlicht werden.
 Die \gls{url} der Umgebung lautet: https://dev-api.travel.ch
 
 \subsection{Checkout}
-Der Checkout gibt es in der Testumgebung seit dem letzten Projekt nicht mehr. Dieser wurde ausgelagert in eine Umgebung die nicht mehr unserem Team unterstellt ist und kann somit nicht nur BPMN modelliert werden.
+Den Checkout gibt es in der Testumgebung seit dem letzten Projekt nicht mehr. Dieser wurde in eine Umgebung, die nicht mehr unserem Team unterstellt ist ausgelagert und kann somit nicht mit BPMN modelliert werden.
 
 \section{Bonita BPM}
-Also BPMN Programm wurde Bonita BPM festgelegt (siehe \cref{sec:Recherche:programme:analyse} \nameref{sec:Recherche:programme:analyse}). Es bietet zwar nicht die gesamte benötigte Features, ist jedoch auf Unix und auf Windows lauffähig und gratis. In diesem Abschnitt wird eine Einführung in das Tool gegeben. 
+Also BPMN Programm wurde Bonita BPM festgelegt (siehe \cref{sec:Recherche:programme:analyse} \nameref{sec:Recherche:programme:analyse}). Es bietet zwar nicht die gesamten benötigten Features, ist jedoch auf Unix und auf Windows lauffähig und gratis. In diesem Abschnitt wird eine Einführung in das Tool gegeben. 
 
-Bonita BPM wird von der Firma Bonitasoft entwickelt und besteht aus einem Programm, welches in Java geschrieben ist, sowie aus einem Webseite, welcher standardmässig auf einem mitgelieferten Tomcat Webserver\footcite{Tomcat_2016-06-12} läuft.
+Bonita BPM wird von der Firma Bonitasoft entwickelt und besteht aus einem Programm, welches in Java geschrieben ist sowie aus einer Webseite, welche standardmässig auf einem mitgelieferten Tomcat Webserver\footcite{Tomcat_2016-06-12} läuft.
 Nachfolgend wird das Interface des Programmes und die verwendeten Funktionen der Software beschrieben.
 
 \subsection{Interface}
@@ -373,7 +373,7 @@ Zuunterst links ist eine Übersicht über alle Elemente im Projekt (Tree View) u
 Bonita BPM ist mit Java implementiert. Auch die Erweiterungen (siehe \cref{sec:analyse:bonita:connectors} \nameref{sec:analyse:bonita:connectors}) werden in dieser Sprache entwickelt. Für das Verständnis wird vorausgesetzt, dass man grundlegendes Wissen für Java Begriffe besitzt (z.B. Namespace, Class, Implementation, Interface, etc.).
 
 \subsection{Business Data Model}
-\gls{bdm} werden für die Modellierung der Daten benötigt. Connectoren können später diese Daten entgegen nehmen oder zurückgeben. Intern handelt es sich dabei um Java Classes.
+\gls{bdm} werden für die Modellierung der Daten benötigt. Connectoren können später diese Daten entgegennehmen, oder zurückgeben. Intern handelt es sich dabei um Java Classes.
 
 Ein \gls{bdm} hat einen Namen und Felder. Felder haben wiederum einen Namen und einen Java Datentypen (string, int oder ein weiteres \gls{bdm}). Ein Feld kann zusätzlich noch die zwei Attribute Multiple oder Mandatory haben. Ist Multiple gesetzt, so handelt es sich bei dem Feld um eine Liste, und Mandatory macht es zwingend, dass bei der Erstellung ein Wert zugewiesen wird.
 
@@ -420,12 +420,12 @@ Connectors werden einem Prozess angehängt. Klickt man einen Task in der Process
 	\caption{Bonita BPM Connectors}
 	\label{fig:analyse:bonita:connectors}
 \end{figure}
-Es gibt in und out Connectors. Diese werden entweder vor dem Task, oder nach dem Task ausgeführt. Bei einem Human Task kann so definiert werden, ob der Connector vor der Benutzerinteraktion ausgeführt wird oder danach.
+Es gibt in- und out-Connectors. Diese werden entweder vor dem Task, oder nach dem Task ausgeführt. Bei einem Human Task kann so definiert werden, ob der Connector vor der Benutzerinteraktion ausgeführt wird oder danach.
 
-Ein Connector besteht aus einer Definition und einer Implementation, welche nachfolgend beschrieben sind. In der Definition ist spezifiziert, was die Eingaben und Ausgaben sind. Wird ein Connector einem Task angehängt, so müssen die Eingaben definiert sowie ein Mapping der Ausgabeparameter gemacht werden.
+Ein Connector besteht aus einer Definition und einer Implementation, welche nachfolgend beschrieben werden. In der Definition ist spezifiziert, was die Eingaben und Ausgaben sind. Wird ein Connector einem Task angehängt, so müssen die Eingaben definiert sowie ein Mapping der Ausgabeparameter gemacht werden.
 
 \subsubsection{Definition}
-Die Definition eines Connectors besteht aus Beschreibungsdaten (Name, Namespace, Kategorie, etc.), Input-Parameter, Wizard Pages und Output-Parameter. Als Input- und Output-Parameter können Java Classes oder \glspl{bdm} definiert werden. Wizard Pages werden dazu benötigt, dass wenn ein Connector einem Task hinzugefügt wird die entsprechenden Input-Parameter definiert werden können.
+Die Definition eines Connectors besteht aus Beschreibungsdaten (Name, Namespace, Kategorie, etc.), Input-Parameter, Wizard Pages und Output-Parameter. Als Input- und Output-Parameter können Java Classes oder \glspl{bdm} definiert werden. Wizard Pages werden dazu benötigt, dass wenn ein Connector einem Task hinzugefügt wird, die entsprechenden Input-Parameter definiert werden können.
 
 \subsubsection{Implementation}
 Um eine Implementation eines Connectors anzulegen, muss zuerst eine Definition gewählt und Beschreibungsdaten angeben werden.
@@ -435,21 +435,21 @@ Um eine Implementation eines Connectors anzulegen, muss zuerst eine Definition g
 	\caption{Bonita BPM Connector Implementation}
 	\label{fig:analyse:bonita:connectors:implementation}
 \end{figure}
-Die Implementation id kann frei gewählt werden, muss im Projekt jedoch eindeutig sein. Der Class name ist der Name der Java Klasse die erstellt wird. Dependencies sind JAR Files welche von innerhalb der Java Klasse benötigt werden.
+Der Wert im Feld "`Implementation id"' kann frei gewählt werden, muss im Projekt jedoch eindeutig sein. Der Class name ist der Name der Java Klasse die erstellt wird. Dependencies sind JAR Files welche von innerhalb der Java Klasse benötigt werden.
 
-Bestätigt man den obigen Dialog, so wird eine Java Klasse und abstrakte Klasse erzeugt. Nach dem obigen Beispiel werden die beiden Classes HotelPlusFlightResultsHotelSelectionImpl und AbstractHotelPlusFlightResultsHotelSelectionImpl erstellt. Das Hauptmethode der ersteren ist die Methode executeBusinessLogic. In der Definition dieses Connectors wurde definiert, dass ein \gls{bdm} HotelPlusFlightResultHotel zurückgegeben wird, welches den namen "`selection"' hat. Deshalb muss die Methode executeBusinessLogic die Methode "`setSelection"' aufrufen und dieser eine Classe vom Typen HotelPlusFlightResultHotel übergeben, um der Definition zu genügen. 
+Bestätigt man den obigen Dialog, so wird eine Java Klasse und abstrakte Klasse erzeugt. Nach dem obigen Beispiel werden die beiden Classes HotelPlusFlightResultsHotelSelectionImpl und AbstractHotelPlusFlightResultsHotelSelectionImpl erstellt. Die Hauptmethode der ersteren ist die Methode executeBusinessLogic. In der Definition dieses Connectors wurde definiert, dass ein \gls{bdm} HotelPlusFlightResultHotel zurückgegeben wird, welches den namen "`selection"' hat. Deshalb muss die Methode executeBusinessLogic die Methode "`setSelection"' aufrufen und dieser eine Classe vom Typen HotelPlusFlightResultHotel übergeben, um der Definition zu genügen. 
 Die Methode setSelection ist dabei in der AbstractHotelPlusFlightResultsHotelSelectionImpl definiert.
 
-Die Funktionalität eines Connectors kann somit frei implementiert werden. Zwingend ist nur das die Methode setSelection aufgerufen wird, sonst die die Ausführung des Connectors fehlerhaft.
+Die Funktionalität eines Connectors kann somit frei implementiert werden. Zwingend ist nur, dass die Methode setSelection aufgerufen wird. Sonst ist die Ausführung des Connectors fehlerhaft.
 
 \subsection{Forms, Contracts und Operations}
 \label{sec:analyse:bonita:forms}
 Bei einem Human Task muss ein Form angehängt werden, um dem Benutzer eine Interaktion in dem Prozess zu ermöglichen.
-In einem Task kann direkt ein neues Formular erstellt werden. Es empfiehlt sich jedoch, zuerst den Contract zu definieren, da die dort angegeben Informationen automatisch bei der Erstellung des Forms und den Operations mitberücksichtigt werden. Weitere Informationen dazu werden den folgenden beiden Abschnitten gegeben.
+In einem Task kann direkt ein neues Formular erstellt werden. Es empfiehlt sich jedoch, zuerst den Contract zu definieren, da die dort angegeben Informationen automatisch bei der Erstellung des Forms und der Operations mitberücksichtigt werden. Weitere Informationen dazu werden den folgenden beiden Abschnitten gegeben.
 
 \subsubsection{Contract}
 \label{sec:analyse:bonita:forms:contract}
-Ein Contract definiert die Daten, die vom Formular erwartet werden. Sie sind dafür verantwortlich, welche Informationen aus dem Process an das Form übergeben werden. Die dort definierten Werte können Java Klassen oder \glspl{bdm} sein. Beim Task für die Auswahl eines Hotels in der Hotel und Flug suche, könnte dies die Liste der Hotelresultate sein. Dazu wird im Contract eine Liste von Hotels angegeben.
+Ein Contract definiert die Daten, die vom Formular erwartet werden. Sie sind dafür verantwortlich, welche Informationen aus dem Process an das Form übergeben werden. Die dort definierten Werte können Java Klassen oder \glspl{bdm} sein. Beim Task für die Auswahl eines Hotels in der Suche von Hotel und Flug könnte dies die Liste der Hotelresultate sein. Dazu wird im Contract eine Liste von Hotels angegeben.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{images/bonita-contract.png}
@@ -471,15 +471,15 @@ Im obigen Beispiel wird definiert, dass auf der Pool Variable hotelPlusFlightSea
 
 \subsubsection{Forms}
 \label{sec:analyse:bonita:forms:forms}
-Ein Form ermöglicht die Interaktion eines Benutzers. Die Daten die an das Form übergeben werden und wie die bearbeiteten Daten zurück in den Process fliessen, ist in dem Contract und den Operations definiert (siehe \nameref{sec:analyse:bonita:forms:contract} und  \nameref{sec:analyse:bonita:forms:operations}). Es ist zu empfehlen, dass zuerst diese beiden Informationen definiert werden, da sie bei der Erstellung des Forms direkt weiterverwendet werden. Definiert man bei dem Contract dass eine Liste von Hotels übergeben wird, so wird bei der Erstellung des Formulars automatisch eine Liste generiert welche diese Daten anzeigt. 
+Ein Form ermöglicht die Interaktion eines Benutzers. Die Daten, die an das Form übergeben werden und wie die bearbeiteten Daten zurück in den Process fliessen, ist in dem Contract und den Operations definiert (siehe \nameref{sec:analyse:bonita:forms:contract} und  \nameref{sec:analyse:bonita:forms:operations}). Es ist zu empfehlen, dass zuerst diese beiden Informationen definiert werden, da sie bei der Erstellung der Forms direkt weiterverwendet werden. Definiert man bei dem Contract, dass eine Liste von Hotels übergeben wird, so wird bei der Erstellung des Formulars automatisch eine Liste generiert, welche diese Daten anzeigt. 
 
 Um ein Formular aus den Daten des Contracts und der Operations zu erstellen, muss dieses in der Configuration View erstellt werden.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{images/bonita-forms-create.png}
-	\caption{Bonita BPM Form erstellung aus Contract und Operations}
+	\caption{Bonita BPM Form Erstellung aus Contract und Operations}
 	\label{fig:analyse:bonita:forms:forms:creation}
 \end{figure}
 
 Danach öffnet sich der UI Designer. Dies ist ein Webinterface, welches auf dem mitgelieferten Tomcat Webserver läuft. Dort kann das Formular angepasst werden.
-Die Funktionalität des UI Designers ist gross. Einen guten Überblick bietet ein Video Tutorial, welches von Bonitasoft bereit gestellt wird und auf folgender URL eingesehen werden kann \url{http://www.bonitasoft.com/resources/videos/getting-started-tutorial}. Ab 35:55 wird der UI Designer vorgestellt.
+Die Funktionalität des UI Designers ist gross. Einen guten Überblick bietet ein Video Tutorial, welches von Bonitasoft bereitgestellt wird und auf folgender URL eingesehen werden kann \url{http://www.bonitasoft.com/resources/videos/getting-started-tutorial}. Ab 35:55 wird der UI Designer vorgestellt.

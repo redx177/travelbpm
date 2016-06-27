@@ -1,7 +1,7 @@
 
 \chapter{Konzept}
 \label{sec:konzept}
-Das Konzept umfasst die Mockups der Formulare, welche in Bonita BPM dargestellt werden, sowie der Prozess welcher modelliert werden soll.
+Das Konzept umfasst die Mockups der Formulare, welche in Bonita BPM dargestellt werden sowie den Prozess, welcher modelliert werden soll.
 
 \section{Mockups}
 \label{sec:konzept:mockups}
@@ -25,7 +25,7 @@ Für die Passagiere kann im obigen Formular nur eine Anzahl für die Erwachsenen
 	\caption{Mockup für die Hotel Suchresultate}
 	\label{fig:konzept:mockups:selecthotel}
 \end{figure}
-Diese Ansicht zeigt ein Foto des Hotels, dessen Namen und der günstigste Preis. Von der \Gls{glos:api} werden noch mehrere Fotos, eine Geokoordinate für die Anzeige einer Maps, Bewertungsdaten, etc. übermittelt. Diese Informationen werden jedoch nicht angezeigt.
+Diese Ansicht zeigt ein Foto des Hotels, dessen Namen und den günstigsten Preis. Von der \Gls{glos:api} werden noch mehrere Fotos, eine Geokoordinate für die Anzeige einer Maps, Bewertungsdaten, etc. übermittelt. Diese Informationen werden jedoch nicht angezeigt.
 
 \begin{figure}[H]
 	\centering
@@ -33,7 +33,7 @@ Diese Ansicht zeigt ein Foto des Hotels, dessen Namen und der günstigste Preis.
 	\caption{Mockup für die Hotelzimmer Konfiguration}
 	\label{fig:konzept:mockups:selectroomconfig}
 \end{figure}
-Auf der travel.ch Seite werden die Zimmer-Konfigurationen als Matrix dargestellt (siehe \cref{sec:recherche:travelch:results} \nameref{sec:recherche:travelch:results}). In Bonita BPM ist dies jedoch nur sehr umständlich abbildbar. Deshalb wurde die Ansicht vereinfacht und als Liste dargestellt.
+Auf der travel.ch Seite werden die Zimmer-Konfigurationen als Matrix dargestellt (siehe \cref{fig:recherche:travelch:configuration} \nameref{fig:recherche:travelch:configuration}). In Bonita BPM ist dies jedoch nur sehr umständlich abbildbar. Deshalb wurde die Ansicht vereinfacht und als Liste dargestellt.
 
 \begin{figure}[H]
 	\centering
@@ -52,4 +52,4 @@ Der Process der travel.ch Seite ist linear und wurde im \cref{sec:Recherche:rahm
 	\caption{Hotel plus Flight BPMN Model für dieses Projekt}
 	\label{fig:konzept:mockups:selectflight}
 \end{figure}
-Die API von travelwindow AG gibt vor, dass zuerst gesucht und ein Hotel ausgewählt wird. Ob danach das Hotel konfiguriert oder der Flug gewählt wird ist hinfällig. Dies ist in der API so modelliert, dass im HotelPlusFlightOffer direkt das Formular für die Hotelkonfiguration und die Flugauswahl vorhanden sind (siehe den letzte Anfrage im \cref{sec:analyse:api} \nameref{sec:analyse:api}). Deshalb wurde ein parallel Gateway eingefügt der diesen Umstand im BPMN abbildet.
+Die API von travelwindow AG gibt vor, dass zuerst gesucht und ein Hotel ausgewählt wird. Ob danach das Hotel konfiguriert, oder der Flug gewählt wird, ist hinfällig. Dies ist in der API so modelliert, dass im HotelPlusFlightOffer direkt das Formular für die Hotelkonfiguration und die Flugauswahl vorhanden sind (siehe die letzte Anfrage im \cref{sec:analyse:api} \nameref{sec:analyse:api}). Deshalb wurde ein parallel Gateway eingefügt, der diesen Umstand im BPMN abbildet.

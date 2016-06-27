@@ -21,7 +21,7 @@ Der Prozess wurde equivalent aufgesetzt, wie es im \cref{sec:konzept:prozess} \n
 	\caption{Prozess im Bonita BPM}
 	\label{fig:umsetzung:prozess}
 \end{figure}
-Das Icon oben Links in den Task signalisiert, dass es sich dabei um einen Human Task handelt und eine Benutzerinteraktion erforderlich ist. Das Bild oben rechts in den Task zeigt an, dass es einen Connector auf dem Task gibt.
+Das Icon oben links im Task signalisiert, dass es sich dabei um einen Human Task handelt und eine Benutzerinteraktion erforderlich ist. Das Bild oben rechts im Task zeigt an, dass es einen Connector auf dem Task gibt.
 
 \section{Business Data Models und Pool Variables}
 Als \glspl{bdm} wurden folgende Modelle definiert:
@@ -82,16 +82,16 @@ Auf der Poolebene wurde für jedes \gls{bdm} eine Pool Variable erstellt. Der Na
 	\end{tabular} 
 \end{table}
 \section{Forms}
-Die Formulare wurden bereits für die Mockups im \cref{sec:konzept:mockups} \nameref{sec:konzept:mockups} erstellt und konnten gleich wiederverwendet werden. Deshalb wird hier auf eine erneute Aufliestung verzichtet.
+Die Formulare wurden bereits für die Mockups im \cref{sec:konzept:mockups} \nameref{sec:konzept:mockups} erstellt und konnten gleich wiederverwendet werden. Deshalb wird hier auf eine erneute Auflistung verzichtet.
 
 \section{Connectors}
 Nachfolgend werden die Definitionen und Implementationen der Connectors beschrieben. Zusätzlich werden für deren Ausführung weitere Abhängigkeiten benötigt, welche in Bonita BPM definiert werden müssen.
 
 \subsection{Abhängigkeiten}
-Für die Ausführung der Connectoren können in Bonita BPM weitere Libraries hinterlegt werden. Für dieses Projekt wurde zusätzlich zwei Abhängigkeiten definiert. Zum einen Gson\footcite{Gson_2016-06-12}, für die Bearbeitung von JSON, and Handy URI Templates\footcite{HandyUriTempaltes_2016-06-12}, für die Verarbeitug von URI Templates gemäss RFC 6570\footcite{RFC_6570_-_URI_Template_2016-06-21}
+Für die Ausführung der Connectoren können in Bonita BPM weitere Libraries hinterlegt werden. Für dieses Projekt wurden zusätzlich zwei Abhängigkeiten definiert. Zum Einen Gson\footcite{Gson_2016-06-12}, für die Bearbeitung von JSON, und zum anderem Handy URI Templates\footcite{HandyUriTempaltes_2016-06-12}, für die Verarbeitung von URI Templates gemäss RFC 6570\footcite{RFC_6570_-_URI_Template_2016-06-21}.
 
 \subsection{Definitions}
-Es wurden vier Definitionen erstellt, für jeden Task einen.
+Es wurden vier Definitionen erstellt. Für jeden Task einer.
 
 \begin{table}[H] 
 	\caption{Connector Definitions}
@@ -114,7 +114,7 @@ Es wurden vier Definitionen erstellt, für jeden Task einen.
 Nachfolgend werden die Tasks im Prozess beschrieben. Diese bestehen aus einem Bezeichner und einem Connector. Zusätzlich müssen noch der Contract, das Formular sowie die Operations (siehe \cref{sec:analyse:bonita:forms} \nameref{sec:analyse:bonita:forms}) angegeben werden.
 
 \subsection{Search}
-Der Search Task muss ein Formular darstellen damit der Benutzer seine Suchkriterien eingeben kann. Dazu wird der Connector HotelPlusFlugSearch hinterlegt und das Formular hotelPlusFlightSearchForm unter Connectors out definiert.
+Der Search Task muss ein Formular darstellen, damit der Benutzer seine Suchkriterien eingeben kann. Dazu wird der Connector HotelPlusFlugSearch hinterlegt und das Formular hotelPlusFlightSearchForm unter Connectors out definiert.
 
 Folgender Contract und Operations mussten spezifiziert werden:
 \begin{table}[H] 
@@ -181,7 +181,7 @@ Folgender Contract und Operations mussten spezifiziert werden:
 \end{table}
 
 \subsection{Select Room Config}
-Beim Schritt Select Room Config wird das selektierte Hotel übergeben und der Benutzer kann eine Zimmer konfiguration auswählen. Dafür ist das From hotelPlusFlightSelectRoomConfig und der Connector HotelPlusFlightHotelConfiguration (im Connector out) vorgesehen.
+Beim Schritt Select Room Config wird das selektierte Hotel übergeben und der Benutzer kann eine Zimmerkonfiguration auswählen. Dafür ist das From hotelPlusFlightSelectRoomConfig und der Connector HotelPlusFlightHotelConfiguration (im Connector out) vorgesehen.
 
 Folgender Contract und Operations mussten spezifiziert werden:
 \begin{table}[H] 
@@ -210,7 +210,7 @@ Folgender Contract und Operations mussten spezifiziert werden:
 \end{table}
 
 \subsection{Select Flight}
-Beim letzten Task muss der User ein Flug auswählen. Dazu wird dem Task das gewählte Hotel übergeben. Definiert wurde das Formular hotelPlusFlightSelectFlight und der Connector out HotelPlusFlightFlightSelection.
+Beim letzten Task muss der User einen Flug auswählen. Dazu wird dem Task das gewählte Hotel übergeben. Definiert wurde das Formular hotelPlusFlightSelectFlight und der Connector out HotelPlusFlightFlightSelection.
 
 Folgender Contract und Operations mussten spezifiziert werden:
 \begin{table}[H] 
@@ -265,7 +265,7 @@ com.thoughtworks.xstream.mapper.CannotResolveClassException: com.travelwindow.mo
 \end{lstlisting}
 Bonita BPM unterstützt Groovy Scripts\footcite{Groovy_2016-06-25}, mit welcher man Daten verarbeiten kann. Es wurde versucht damit das Problem zu beheben.
 
-Folgender Groovy Code wurde verwendet um das Mapping für die HotelPlusFlightResults durchzuführen:
+Folgender Groovy Code wurde verwendet, um das Mapping für die HotelPlusFlightResults durchzuführen:
 \begin{lstlisting}[language=Groovy,firstnumber=1]
 import groovy.json.JsonBuilder
 import com.travelwindow.model.HotelPlusFlightResults
@@ -281,10 +281,10 @@ for (hotel in hotelPlusFlightResults.getHotels()) {
 }
 return mappedData
 \end{lstlisting}
-Leider konnte der Fehler dadurch nicht behoben werden. Gemäss Bonitasoft sollte dies kein Problem darstellen. Recherchen in der Dokumentation des Programmes und Online im Forum des Herstellers gaben keine abhilfe. Es wurden stattdessen Standartwerte auf den Pool Variablen definiert damit der Prozess bis ans Ende durchgeführt werden kann.
+Leider konnte der Fehler dadurch nicht behoben werden. Gemäss Bonitasoft sollte dies kein Problem darstellen. Recherchen in der Dokumentation des Programmes und Online im Forum des Herstellers gaben keine Abhilfe. Es wurden stattdessen Standartwerte auf den Pool Variablen definiert, damit der Prozess bis ans Ende durchgeführt werden kann.
 
 \subsection{Input Parameter der Connectoren}
-Das Aufsetzten der Formulare und die Konfiguration der Contract und Operations verlief Problemlos. Jedoch gab es Probleme bei den Input Parametern der Connectoren. Bei der Ausführung des Prozesses erschien folgende Log Meldung:
+Das Aufsetzten der Formulare und die Konfiguration der Contract und Operations verlief problemlos. Jedoch gab es Probleme bei den Input Parametern der Connectoren. Bei der Ausführung des Prozesses erschien folgende Log Meldung:
 
 \begin{lstlisting}[firstnumber=1]
 SEVERE: THREAD_ID=119 | HOSTNAME=Slang-ThinkPad | TENANT_ID=1 | The work [ExecuteConnectorOfActivity: flowNodeInstanceId = 240003, connectorDefinitionName = HotelPlusFlighResultsHotelSelection] failed. The failure will be handled.
@@ -300,7 +300,7 @@ Unklar war, ob der Fehler in der Operations des Formulares liegt, oder am Connec
 
 \subsubsection{Script zum Abspeichern der Formularwerte}
 Mit Groovy\footcite{Groovy_2016-06-25} kann man die Formularwerte bearbeitet, welche von den Formularen zurückgeliefert werden.
-Es wurde folgendes Script definiert, um den Wert des Formulares in ein \gls{bdm} zu überführen damit Bonita BPM diesen weiterverwenden kann. Dies wurde durchgeführt in der Vermutung, dass eventuell der Fehler innerhalb der Operations des Formulares liegt.
+Es wurde folgendes Script definiert, um den Wert des Formulars in ein \gls{bdm} zu überführen, damit Bonita BPM diesen weiterverwenden kann. Dies wurde durchgeführt, in der Vermutung, dass eventuell der Fehler innerhalb der Operations des Formulars liegt.
 \begin{lstlisting}[language=Groovy,firstnumber=1]
 def hotels = new java.util.ArrayList()
 hotelPlusFlightResultsInput.hotels.each{
@@ -320,7 +320,7 @@ return results
 Der Fehler blieb jedoch der selbe.
 
 \subsubsection{Standartwerte definieren}
-Es wurde ein neues Pool Variable vom Typ  HotelPlusFlightResults, welche mit fix vorgegebenen Werten befüllt wurde. Dies sollte ausschliessen, dass das Problem im Formular liegt. Auch dies wurde mit einem Groovy Script bewerkstelligt.
+Es wurde eine neue Pool Variable vom Typ  HotelPlusFlightResults erstellt, welche mit fix vorgegebenen Werten befüllt wurde. Dies sollte ausschliessen, dass das Problem im Formular liegt. Auch dies wurde mit einem Groovy Script bewerkstelligt.
 
 \begin{lstlisting}[language=Groovy,firstnumber=1]
 def hotel1 = new com.travelwindow.model.HotelPlusFlightResultHotel()
@@ -352,18 +352,18 @@ return results
 Der Fehler blieb weiterhin bestehen.
 
 \subsubsection{Input Parameter des Connectors entfernen}
-Nun wurde versucht, der Input Parameter des HotelPlusFlightResultsHotelSelection auf der Connector Definition zu entfernen.
+Nun wurde versucht den Input Parameter des HotelPlusFlightResultsHotelSelection auf der Connector Definition zu entfernen.
 
 Danach musste der Out Connector auf dem Select Hotel Task noch angepasst werden, um der Änderung in der Definition zu entsprechen.
 
-Jedoch blieb der Fehler der Selbe.
+Jedoch blieb der Fehler der selbe.
 
 \subsubsection{Connector entfernen}
 \label{sec:umsetzung:problem:removeconnector}
 Als letzte Möglichkeit wurde der Connector aus dem Task Select Hotel entfernt. Damit verschwand auch der Fehler und der Prozess konnte durchgeführt werden.
 
 \subsubsection{Konsequenz}
-Es wurde noch weiter versucht, dieses Problem zu beheben. Jedoch ohne Erfolg. Auch im Forum des Herstellers gab es keine Abhilfe. Deshalb mussten die Connectors auf den Tasks Select Hotel, Select Room Config und Select Flight entfernt werden, um mindestens in der Lage zu sein den Prozess bis ans Ende durchzuführen. Deshalb wurde für alle Formulare Standartwerte Definiert, so dass der Prozess zumindest durch getestet werden kann.
+Es wurde noch weiter versucht dieses Problem zu beheben. Jedoch ohne Erfolg. Auch im Forum des Herstellers gab es keine Abhilfe. Deshalb mussten die Connectors auf den Tasks Select Hotel, Select Room Config und Select Flight entfernt werden, um zumindest in der Lage zu sein, den Prozess bis ans Ende durchzuführen. Deshalb wurde für alle Formulare Standartwerte Definiert, damit der Prozess bis ans Ende getestet werden kann.
 
 Ein Beispiel für Standartwerte des Flugselections-Formular:
 \begin{lstlisting}[language=json,firstnumber=1]
